@@ -7,7 +7,7 @@
 #  
 install -v -d -m755 /opt/share/xml/docbook/xml-dtd-4.5 &&
 install -v -d -m755 /etc/xml &&
-chown -R root:root . &&
+chown -R root:admin . &&
 cp -v -af docbook.cat *.dtd ent/ *.mod \
 /opt/share/xml/docbook/xml-dtd-4.5
 
