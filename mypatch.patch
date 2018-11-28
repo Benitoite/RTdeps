@@ -1,0 +1,15 @@
+diff --git a/cmake/FindIconv.cmake b/cmake/FindIconv.cmake
+index a30f1fdf..743baf5d 100644
+--- a/cmake/FindIconv.cmake
++++ b/cmake/FindIconv.cmake
+@@ -126,10 +126,5 @@ if(ICONV_FOUND)
+     endif()
+ endif()
+ 
+-if(NOT ICONV_ACCEPTS_CONST_INPUT AND NOT ICONV_ACCEPTS_NONCONST_INPUT)
+-  MESSAGE(FATAL_ERROR "Unable to determine iconv() signature")
+-elseif(ICONV_ACCEPTS_CONST_INPUT AND ICONV_ACCEPTS_NONCONST_INPUT)
+-  MESSAGE(FATAL_ERROR "Unable to determine iconv() signature - both test cases passed!")
+-endif()
+ 
+ mark_as_advanced(ICONV_LIBRARY ICONV_INCLUDE_DIR)
