@@ -1,13 +1,13 @@
-diff --git a/Makefile b/Users/rb/Downloads/getopt-1.1.6/Makefile
-index 9e46a51..ac9d1a4 100644
---- a/Makefile
-+++ b/Users/rb/Downloads/getopt-1.1.6/Makefile
+diff --git a/Users/rb/Downloads/getopt-1.1.6/Makefile b/Makefile
+index ac9d1a4..9e46a51 100644
+--- a/Users/rb/Downloads/getopt-1.1.6/Makefile
++++ b/Makefile
 @@ -1,7 +1,7 @@
  .SUFFIXES:
  
  DESTDIR=
--prefix=/opt/local
-+prefix=/usr/local
+-prefix=/usr/local
++prefix=/opt/local
  bindir=$(prefix)/bin
  mandir=$(prefix)/man
  man1dir=$(mandir)/man1
@@ -15,10 +15,10 @@ index 9e46a51..ac9d1a4 100644
           -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes \
           -Wnested-externs -Winline
  OPTIMIZE=-O3 -fno-strength-reduce
--CFLAGS=$(WARNINGS) $(OPTIMIZE) -I/opt/local/include
--LDFLAGS=-L/opt/local/lib -lintl
-+CFLAGS=$(WARNINGS) $(OPTIMIZE)
-+LDFLAGS=
+-CFLAGS=$(WARNINGS) $(OPTIMIZE)
+-LDFLAGS=
++CFLAGS=$(WARNINGS) $(OPTIMIZE) -I/opt/local/include
++LDFLAGS=-L/opt/local/lib -lintl
  
  sources=getopt.c
  ifeq ($(LIBCGETOPT),0)
