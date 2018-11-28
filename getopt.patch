@@ -1,0 +1,24 @@
+diff --git a/Makefile b/Users/rb/Downloads/getopt-1.1.6/Makefile
+index 9e46a51..ac9d1a4 100644
+--- a/Makefile
++++ b/Users/rb/Downloads/getopt-1.1.6/Makefile
+@@ -1,7 +1,7 @@
+ .SUFFIXES:
+ 
+ DESTDIR=
+-prefix=/opt/local
++prefix=/usr/local
+ bindir=$(prefix)/bin
+ mandir=$(prefix)/man
+ man1dir=$(mandir)/man1
+@@ -42,8 +42,8 @@ WARNINGS=-Wall \
+          -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes \
+          -Wnested-externs -Winline
+ OPTIMIZE=-O3 -fno-strength-reduce
+-CFLAGS=$(WARNINGS) $(OPTIMIZE) -I/opt/local/include
+-LDFLAGS=-L/opt/local/lib -lintl
++CFLAGS=$(WARNINGS) $(OPTIMIZE)
++LDFLAGS=
+ 
+ sources=getopt.c
+ ifeq ($(LIBCGETOPT),0)
