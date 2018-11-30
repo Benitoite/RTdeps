@@ -5,9 +5,8 @@
 #  Adapted from http://www.linuxfromscratch.org/blfs/view/cvs/pst/docbook.html
 #  Created by Richard Barber on 11/28/18.
 #  
-install -v -d -m755 /opt/share/xml/docbook/xml-dtd-4.5 &&
-install -v -d -m755 /etc/xml &&
-chown -R root:admin . &&
+install -v -d -m755 /opt/share/xml/docbook/xml-dtd-4.5 && \
+install -v -d -m755 /etc/xml && \
 cp -v -af docbook.cat *.dtd ent/ *.mod \
 /opt/share/xml/docbook/xml-dtd-4.5
 
