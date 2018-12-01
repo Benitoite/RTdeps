@@ -24,7 +24,7 @@ git clone https://github.com/GNOME/glibmm.git
 git clone https://github.com/GNOME/libsigcplusplus.git
 git clone git://git.code.sf.net/p/libpng/code libpng
 git clone https://github.com/madler/zlib.git
-git clone https://github.com/LuaDist/libjpeg.git
+git clone https://github.com/libjpeg-turbo/libjpeg-turbo.git
 git clone https://github.com/mm2/Little-CMS.git lcms
 git clone https://github.com/libexpat/libexpat.git
 git clone git://git.code.sf.net/p/lensfun/code lensfun-code
@@ -90,7 +90,7 @@ cd ~/meson && ninja && chmod +x meson.py && sudo cp meson.py /opt/local/bin/meso
 
 cd ~/libomp-oss && mkdir build && cd build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local && make -j8 && sudo make install && sudo install_name_tool -id /opt/local/lib/libiomp5.dylib  /opt/local/lib/libiomp5.dylib
 
-cd ~/libjpeg && mkdir build && cd build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local && ccmake .. && make -j8 && sudo make install &&  sudo install_name_tool -id /opt/local/lib/libjpeg.dylib  /opt/local/lib/libjpeg.dylib
+cd ~/libjpeg-turbo* && mkdir build && cd build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local && ccmake .. && make -j8 && sudo make install
 
 cd ~/tiff/tiff* &&  mkdir build-aux && cd build-aux && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local && make -j8 && sudo make install
 
