@@ -114,7 +114,7 @@ cd ~/bzip2* && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/bz
 
 cd ~/libpng && autoconf && ./configure  --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes && make -j8 && sudo make install
 
-cd freetype2 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --with-harfbuzz=no --enable-shared=yes && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --with-harfbuzz=no --enable-shared=yes && make -j8 && sudo make install && sudo install_name_tool -change @rpath/libpng16.16.dylib /opt/local/lib/libpng16.16.dylib /opt/local/lib/libfreetype.6.dylib
+cd ~/freetype2 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --with-harfbuzz=no --enable-shared=yes && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --with-harfbuzz=no --enable-shared=yes && make -j8 && sudo make install && sudo install_name_tool -change @rpath/libpng16.16.dylib /opt/local/lib/libpng16.16.dylib /opt/local/lib/libfreetype.6.dylib
 
 cd ~/fontconfig && sh autogen.sh --with-libintl-prefix=/opt/local --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes
 
