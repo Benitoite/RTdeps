@@ -63,8 +63,7 @@ curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/docbook-xml.zip -
 curl https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.tar.bz2 -o docbook-xsl.tar.bz2 && tar xvjf docbook-xsl.tar.bz2
 curl https://www.x.org/archive/individual/util/util-macros-1.19.1.tar.bz2 -o util-macros.tar.bz2 && tar xvjf util-macros.tar.bz2
 curl https://www.nasm.us/pub/nasm/releasebuilds/2.14/macosx/nasm-2.14-macosx.zip -o nasm.zip && unzip nasm.zip && rm nasm.zip
-curl http://saimei.ftp.acc.umu.se/pub/gnome/sources/adwaita-icon-theme/3.30/adwaita-icon-theme-3.30.0.tar.xz -o icons.tar.xz && tar xf icons.tar.xz && rm icons.tar.xz
-
+curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/adwaita.zip -o adwaita.zip && unzip adwaita.zip && rm adwaita.zip
 # Build tools and libraries
 
 cd ~/CMake && ./configure --prefix=/opt/local && make -j8 && sudo make install && export PATH=/opt/local/bin:$PATH
@@ -183,7 +182,7 @@ cd ~/fftw* &&  ./configure  --prefix=/opt/local --with-sysroot=/Applications/Xco
 
 cd ~/gtk-mac* && sh autogen.sh  --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no  'CFLAGS= -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS= -arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CPPFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CPPFLAGS="-I/opt/local/include " --enable-introspection=no && make -j8 && sudo make install
 
-cd ~/adwaita* && ./configure --prefix=/opt/local && make && sudo make install || exit 0
+cd ~ && sudo install -d Adwaita /opt/local/share/icons/Adwaita
 
 # RawTherapee
 
