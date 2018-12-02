@@ -183,7 +183,7 @@ cd ~/fftw* &&  ./configure  --prefix=/opt/local --with-sysroot=/Applications/Xco
 
 cd ~/gtk-mac* && sh autogen.sh  --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no  'CFLAGS= -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS= -arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CPPFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CPPFLAGS="-I/opt/local/include " --enable-introspection=no && make -j8 && sudo make install
 
-cd ~/adwaita* && ./configure --prefix=/opt/local && make && sudo make install
+cd ~/adwaita* && ./configure --prefix=/opt/local && make && sudo make install || exit 0
 
 # RawTherapee
 
