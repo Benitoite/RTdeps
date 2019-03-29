@@ -1,0 +1,13 @@
+diff --git a/meson_options.txt b/meson_options.txt
+index a7c33a869..3e860c843 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -17,7 +17,7 @@ option('jasper',
+ option('x11',
+        description: 'Enable X11 support (requires libX11)',
+        type: 'boolean',
+-       value: true)
++       value: false)
+ option('builtin_loaders',
+        description: 'Comma-separated list of loaders to build into gdk-pixbuf, or "none", or "all" to build all buildable loaders into gdk-pixbuf',
+        type: 'string',
