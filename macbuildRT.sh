@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #  macbuildRT.sh
-#  Builds RawTherapee on macOS 10.14.2 / Xcode 10.1
+#  Builds RawTherapee on macOS 10.14.5 / Xcode 10.2
 #
 #  Created by Richard Barber on 12/1/18.
 #  
@@ -21,7 +21,7 @@ git clone https://github.com/GNOME/gobject-introspection.git
 git clone https://github.com/GNOME/atk.git
 git clone https://github.com/GNOME/atkmm.git
 git clone https://github.com/GNOME/glibmm.git
-git clone https://github.com/GNOME/libsigcplusplus.git
+git clone https://github.com/libsigcplusplus/libsigcplusplus.git
 git clone git://git.code.sf.net/p/libpng/code libpng
 git clone https://github.com/madler/zlib.git
 git clone https://github.com/libjpeg-turbo/libjpeg-turbo.git
@@ -57,7 +57,7 @@ curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/xz.zip -o xz.zip 
 curl --user anonymous:example@ftp.com ftp://ftp.gnu.org/gnu/gettext/gettext-0.19.8.1.tar.gz -o gettext.tar.gz && gunzip -c gettext.tar.gz | tar xopf - && rm gettext.tar.gz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/bzip2.zip -o bzip2.zip && unzip bzip2.zip && tar -xvf bzip*tar  && rm bzip2.zip && rm bzip*tar
 curl http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz -o libiconv.tar.gz && tar xf libiconv.tar.gz && rm libiconv*gz
-curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.5.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm tex*xz
+curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.6.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm tex*xz
 curl http://mirror.csclub.uwaterloo.ca/gnu/autoconf-archive/autoconf-archive-2018.03.13.tar.xz -o autoconf-archive.tar.xz && tar xf autoconf-archive.tar.xz && rm auto*xz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/docbook-xml.zip -o docbook-xml.zip && unzip docbook-xml.zip -d ./docbook-xml && rm doc*zip
 curl https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.tar.bz2 -o docbook-xsl.tar.bz2 && tar xvjf docbook-xsl.tar.bz2
@@ -108,15 +108,13 @@ cd ~/libffi && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xc
 
 cd ~/fftw* && sh bootstrap.sh  --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk && make -j8 && sudo make install
 
-cd ~/graphite && mkdir build && cd build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local  -DCMAKE_MACOSX_RPATH=/opt/local/lib -DCMAKE_SHARED_LINKER_FLAGS="-L /opt/local/lib -rpath /opt/local/lib" && make -j8 && sudo make install &&  sudo install_name_tool -id /opt/local/lib/libgraphite2.3.dylib /opt/local/lib/libgraphite2.3.0.1.dylib &&  sudo install_name_tool -id /opt/local/lib/libgraphite2.3.dylib /opt/local/lib/libgraphite2.3.2.1.dylib
+cd ~/graphite && git checkout 1.3.13 && mkdir build && cd build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local  -DCMAKE_MACOSX_RPATH=/opt/local/lib -DCMAKE_SHARED_LINKER_FLAGS="-L /opt/local/lib -rpath /opt/local/lib" && make -j8 && sudo make install &&  sudo install_name_tool -id /opt/local/lib/libgraphite2.3.dylib /opt/local/lib/libgraphite2.3.0.1.dylib &&  sudo install_name_tool -id /opt/local/lib/libgraphite2.3.dylib /opt/local/lib/libgraphite2.3.2.1.dylib
 
 cd ~/bzip2* && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/bzip2.zip -o bzip2.zip && unzip bzip2.zip && tar -xvf bzip*tar  && rm bzip2.zip && rm bzip*tar && make && sudo make install PREFIX=/opt/local
 
-cd ~/libpng && autoconf && ./configure  --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes && make -j8 && sudo make install
-
 cd ~/freetype2 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --with-harfbuzz=no --enable-shared=yes && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --with-harfbuzz=no --enable-shared=yes && make -j8 && sudo make install && sudo install_name_tool -change @rpath/libpng16.16.dylib /opt/local/lib/libpng16.16.dylib /opt/local/lib/libfreetype.6.dylib
 
-cd ~/fontconfig && sh autogen.sh --with-libintl-prefix=/opt/local --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes
+cd ~/fontconfig && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/fontconfig.patch && patch -p1 < fontconfig.patch && sh autogen.sh --with-libintl-prefix=/opt/local --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes && make -j8 && sudo make install
 
 cd ~/libiptc* && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
@@ -136,7 +134,7 @@ cd ~/cairo && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xco
 
 cd ~/doxygen && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/mypatch.patch -o mypatch.patch && git apply mypatch.patch && mkdir build && cd build && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local  .. && make -j8 && sudo make install
 
-cd ~/libsigcplusplus && git checkout 2.10.0 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
+cd ~/libsigcplusplus && git checkout 2.10.1 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" --disable-documentation && make -j8 && sudo make install
 
 cd ~/texinfo* &&  ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CPPFLAGS="-I/opt/local/include" && make -j8 && sudo make install
 
@@ -156,7 +154,7 @@ cd ~/fribidi && git checkout git checkout f2c9d50722cb60d0cdec3b1bafba9029770e86
 
 cd ~/pango && mkdir build && cd build && meson --prefix=/opt/local --sysconfdir=/etc .. && ninja && sudo ninja install
 
-cd ~/cairomm && git checkout cairomm-1-12 &&  sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
+cd ~/cairomm && git checkout cairomm-1-14 &&  sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
 cd ~/pangomm && git checkout 2.42.0 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
