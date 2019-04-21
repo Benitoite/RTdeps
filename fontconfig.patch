@@ -1,0 +1,13 @@
+diff --git a/src/fcint.h b/src/fcint.h
+index 9e1da1e..439462c 100644
+--- a/src/fcint.h
++++ b/src/fcint.h
+@@ -115,7 +115,7 @@ extern pfnSHGetFolderPathA pSHGetFolderPathA;
+ 
+ /* NLS */
+ #ifdef ENABLE_NLS
+-#include <libintl.h>
++#include </opt/local/include/libintl.h>
+ #define _(x)           (dgettext(GETTEXT_PACKAGE, x))
+ #else
+ #define dgettext(d, s) (s)
