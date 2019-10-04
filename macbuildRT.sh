@@ -144,7 +144,7 @@ cd ~/texinfo* &&  ./configure --prefix=/opt/local --with-sysroot=/Applications/X
 
 cd ~/autoconf-archive && ./configure --prefix=/opt/local && make && sudo make install
 
-cd ~/gobject-introspection &&  sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CPPFLAGS="-I/opt/local/include" && make -j8 && sudo make install
+cd ~/gobject-introspection &&   sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes --disable-doctool --enable-gtk-doc-html=no 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CPPFLAGS="-I/opt/local/include" && make -j8 && sudo make install
 
 cd ~/atk &&  meson _build . --prefix=/opt/local -Dintrospection=false && ninja -C _build &&  sed -i -e 's/-current_version=1/-current_version 1/g' _build/build.ninja && sed -i -e 's/-compatibility_version=1/-compatibility_version 1/g' _build/build.ninja && ninja -C _build && sudo ninja -C _build install
 
