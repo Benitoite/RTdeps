@@ -27,7 +27,7 @@ git clone https://github.com/madler/zlib.git
 git clone https://github.com/libjpeg-turbo/libjpeg-turbo.git
 git clone https://github.com/mm2/Little-CMS.git lcms
 git clone https://github.com/libexpat/libexpat.git
-git clone git://git.code.sf.net/p/lensfun/code lensfun-code
+git clone https://github.com/lensfun/lensfun.git
 git clone https://github.com/svn2github/pcre.git
 git clone https://github.com/anholt/libepoxy.git
 git clone https://github.com/silnrsi/graphite.git
@@ -128,7 +128,7 @@ cd ~/gettext* && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/
 
 cd ~/glib && git checkout 2.58.3 && sh autogen.sh --enable-gtk-doc=no --enable-gtk-doc-pdf=no --enable-man=no --enable-gtk-doc-html=no --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-fstrict-aliasing -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-lresolv -bind_at_load -arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-I/opt/local/include -arch x86_64 -mmacosx-version-min=10.9" CPPFLAGS="-I/opt/local/include" --enable-static --disable-libelf --disable-compile-warnings --disable-gtk-doc  --with-pcre=system    ac_cv_prog_AWK=/usr/bin/awk    ac_cv_prog_GTKDOC_CHECK=  ac_cv_path_GTKDOC_CHECK_PATH= ac_cv_path_GTKDOC_MKPDF= ac_cv_path_GTDOC_REBASE=  PCRE_CFLAGS="-I/opt/local/include" PCRE_LIBS="-L/opt/local/lib -lpcre" && make -j8 && sudo make install
 
-cd ~/lensfun-code && mkdir build && cd build &&  cmake ..  -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local && make -j8 && sudo make install
+cd ~/lensfun && mkdir build && cd build &&  cmake ..  -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local && make -j8 && sudo make install
 
 cd ~/lcms &&  sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CPPFLAGS="-I/opt/local/include" && make -j8 && sudo make install
 
