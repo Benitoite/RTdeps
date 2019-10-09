@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #  macbuildRT.sh
-#  Builds RawTherapee on macOS 10.14.5 / Xcode 10.2
+#  Builds RawTherapee on macOS 10.14.6 / Xcode 11.1
 #
 #  Created by Richard Barber on 12/1/18.
 #  
@@ -47,23 +47,24 @@ git clone https://github.com/freedesktop/cairomm.git
 git clone https://gitlab.gnome.org/GNOME/gdk-pixbuf.git
 git clone https://github.com/mdadams/jasper.git
 
-curl https://ftp.gnu.org/gnu/wget/wget-1.19.5.tar.gz -o wget.tar.gz && gunzip -c wget.tar.gz | tar xopf - && rm wget.tar.gz
+#curl https://ftp.gnu.org/gnu/wget/wget-latest.tar.gz -o wget.tar.gz && gunzip -c wget.tar.gz | tar xopf - && rm wget.tar.gz
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
 curl http://fftw.org/fftw-3.3.8.tar.gz -o fftw.tar.gz && gunzip -c fftw.tar.gz | tar xopf - && rm fftw.tar.gz
 curl https://www.openmprtl.org/sites/default/files/libomp_20160808_oss.tgz -o libiomp.tgz && tar -xvzf libiomp.tgz && rm libiomp.tgz
 curl http://download.osgeo.org/libtiff/tiff-4.0.10.zip -o tiff.zip && unzip tiff.zip -d tiff && rm tiff*zip
-curl http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz -o autoconf.tar.gz && gunzip -c autoconf.tar.gz | tar xopf - && rm autoconf.tar.gz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/xz.zip -o xz.zip && unzip xz.zip && tar -xvf xz*tar  && rm xz.zip && rm xz*tar
 curl --user anonymous:example@ftp.com ftp://ftp.gnu.org/gnu/gettext/gettext-0.19.8.1.tar.gz -o gettext.tar.gz && gunzip -c gettext.tar.gz | tar xopf - && rm gettext.tar.gz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/bzip2.zip -o bzip2.zip && unzip bzip2.zip && tar -xvf bzip*tar  && rm bzip2.zip && rm bzip*tar
 curl http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz -o libiconv.tar.gz && tar xf libiconv.tar.gz && rm libiconv*gz
 curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.6.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm tex*xz
-curl http://mirror.csclub.uwaterloo.ca/gnu/autoconf-archive/autoconf-archive-2018.03.13.tar.xz -o autoconf-archive.tar.xz && tar xf autoconf-archive.tar.xz && rm auto*xz
+curl http://mirror.csclub.uwaterloo.ca/gnu/autoconf-archive/autoconf-archive-2019.01.06.tar.xz  -o autoconf-archive.tar.xz && tar xf autoconf-archive.tar.xz && rm auto*xz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/docbook-xml.zip -o docbook-xml.zip && unzip docbook-xml.zip -d ./docbook-xml && rm doc*zip
 curl https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.tar.bz2 -o docbook-xsl.tar.bz2 && tar xvjf docbook-xsl.tar.bz2
 curl https://www.x.org/archive/individual/util/util-macros-1.19.1.tar.bz2 -o util-macros.tar.bz2 && tar xvjf util-macros.tar.bz2
 curl https://www.nasm.us/pub/nasm/releasebuilds/2.14.03rc2/macosx/nasm-2.14.03rc2-macosx.zip -o nasm.zip && unzip nasm.zip && rm nasm.zip
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/adwaita.zip -o adwaita.zip && unzip adwaita.zip && rm adwaita.zip
+curl http://gnu.spinellicreations.com/help2man/help2man-1.47.11.tar.xz -o help2man.tar.xz && tar xf help2man.tar.xz && rm help2man*z
+
 # Build tools and libraries
 
 cd ~/CMake && ./configure --prefix=/opt/local && make -j8 && sudo make install && export PATH=/opt/local/bin:$PATH
@@ -74,13 +75,15 @@ cd ~/automake && ./bootstrap --prefix=/opt/local && ./configure --prefix=/opt/lo
 
 cd ~/xz* &&  ./configure --prefix=/opt/local && make -j8 && sudo make install
 
+cd ~/help2man* && ./configure --prefix=/opt/local && make -j8 && sudo make install
+
 cd ~/libtool &&  ./bootstrap &&  ./configure --prefix=/opt/local && make -j8 && sudo make install
 
-cd ~/pkg-config && ./configure —prefix=/opt/local && make -j8 && sudo make install
+cd ~/pkg-config && sh ./autogen.sh --prefix=/opt/local --with-internal-glib && make -j8 && sudo make install
 
 cd ~/openssl && ./config --prefix=/opt/local && make -j8 && sudo make install
 
-cd ~/wget* && ./configure --prefix=/opt/local --with-ssl=openss && make -j8 && sudo make install
+#cd ~/wget* && ./configure --prefix=/opt/local --with-ssl=openss && make -j8 && sudo make install
 
 cd ~/gettext* && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
@@ -118,7 +121,7 @@ cd ~/fontconfig && curl https://raw.githubusercontent.com/Benitoite/RTdeps/maste
 
 cd ~/libiptc* && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
-cd ~/libiconv* && ./configure --prefix=/opt/local --disable-static 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && wget https://raw.githubusercontent.com/Beep6581/RawTherapee/dev/tools/osx/libiconv_1.15_rt.patch --no-check-certificate && patch -p1 < libiconv_1.15_rt.patch && make -j8 && sudo make install && libtool --finish /opt/local/lib
+cd ~/libiconv* && ./configure --prefix=/opt/local --disable-static 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && curl https://raw.githubusercontent.com/Beep6581/RawTherapee/dev/tools/osx/libiconv_1.15_rt.patch -o libiconv_1.15_rt.patch && patch -p1 < libiconv_1.15_rt.patch && make -j8 && sudo make install && libtool --finish /opt/local/lib
 
 cd ~/gettext* && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
