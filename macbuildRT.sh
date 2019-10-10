@@ -58,7 +58,7 @@ curl http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz -o libiconv.tar.gz
 curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm tex*xz
 curl http://mirror.csclub.uwaterloo.ca/gnu/autoconf-archive/autoconf-archive-2019.01.06.tar.xz  -o autoconf-archive.tar.xz && tar xf autoconf-archive.tar.xz && rm auto*xz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/docbook-xml.zip -o docbook-xml.zip && unzip docbook-xml.zip -d ./docbook-xml && rm doc*zip
-curl https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.tar.bz2 -o docbook-xsl.tar.bz2 && tar xvjf docbook-xsl.tar.bz2
+curl https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.tar.gz -o docbook-xsl.tar.gz && tar xvf docbook-xsl.tar.gz
 curl https://www.x.org/archive/individual/util/util-macros-1.19.1.tar.bz2 -o util-macros.tar.bz2 && tar xvjf util-macros.tar.bz2
 curl https://www.nasm.us/pub/nasm/releasebuilds/2.14.03rc2/macosx/nasm-2.14.03rc2-macosx.zip -o nasm.zip && unzip nasm.zip && rm nasm.zip && mv nasm* nasm && export PATH=~/nasm:$PATH
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/adwaita.zip -o adwaita.zip && unzip adwaita.zip && rm adwaita.zip
