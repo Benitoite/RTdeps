@@ -15,7 +15,6 @@ git clone https://gitlab.freedesktop.org/fontconfig/fontconfig.git
 git clone https://git.savannah.gnu.org/git/freetype/freetype2.git
 git clone https://anongit.freedesktop.org/git/harfbuzz.git
 git clone https://gitlab.gnome.org/GNOME/glib.git
-#git clone https://git.savannah.gnu.org/git/libiconv.git
 git clone https://github.com/GNOME/gtkmm.git
 git clone https://github.com/GNOME/gobject-introspection.git
 git clone https://github.com/GNOME/atk.git
@@ -56,7 +55,7 @@ curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/xz.zip -o xz.zip 
 curl --user anonymous:example@ftp.com ftp://ftp.gnu.org/gnu/gettext/gettext-0.19.8.1.tar.gz -o gettext.tar.gz && gunzip -c gettext.tar.gz | tar xopf - && rm gettext.tar.gz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/bzip2.zip -o bzip2.zip && unzip bzip2.zip && tar -xvf bzip*tar  && rm bzip2.zip && rm bzip*tar
 curl http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz -o libiconv.tar.gz && tar xf libiconv.tar.gz && rm libiconv*gz
-curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.6.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm tex*xz
+curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm tex*xz
 curl http://mirror.csclub.uwaterloo.ca/gnu/autoconf-archive/autoconf-archive-2019.01.06.tar.xz  -o autoconf-archive.tar.xz && tar xf autoconf-archive.tar.xz && rm auto*xz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/docbook-xml.zip -o docbook-xml.zip && unzip docbook-xml.zip -d ./docbook-xml && rm doc*zip
 curl https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.tar.bz2 -o docbook-xsl.tar.bz2 && tar xvjf docbook-xsl.tar.bz2
@@ -143,7 +142,7 @@ cd ~/libsigcplusplus && git checkout 2.10.1 && sh autogen.sh --prefix=/opt/local
 
 cd ~/texinfo* &&  ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CPPFLAGS="-I/opt/local/include" && make -j8 && sudo make install
 
-cd ~/autoconf-archive && ./configure --prefix=/opt/local && make && sudo make install
+cd ~/autoconf-archive* && ./configure --prefix=/opt/local && make && sudo make install
 
 cd ~/gobject-introspection &&   sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes --disable-doctool --enable-gtk-doc-html=no 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CPPFLAGS="-I/opt/local/include" && make -j8 && sudo make install
 
