@@ -15,7 +15,7 @@ git clone https://gitlab.freedesktop.org/fontconfig/fontconfig.git
 git clone https://git.savannah.gnu.org/git/freetype/freetype2.git
 git clone https://anongit.freedesktop.org/git/harfbuzz.git
 git clone https://gitlab.gnome.org/GNOME/glib.git
-git clone https://git.savannah.gnu.org/git/libiconv.git
+#git clone https://git.savannah.gnu.org/git/libiconv.git
 git clone https://github.com/GNOME/gtkmm.git
 git clone https://github.com/GNOME/gobject-introspection.git
 git clone https://github.com/GNOME/atk.git
@@ -121,7 +121,7 @@ cd ~/fontconfig && sed -i -e 's+libintl.h+/opt/local/include/libintl.h+g' src/fc
 
 cd ~/libiptc* && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
-cd ~/libiconv* && ./configure --prefix=/opt/local --disable-static 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && curl https://raw.githubusercontent.com/Beep6581/RawTherapee/dev/tools/osx/libiconv_1.15_rt.patch -o libiconv_1.15_rt.patch && patch -p1 < libiconv_1.15_rt.patch && make -j8 && sudo make install && libtool --finish /opt/local/lib
+cd ~/libiconv*  && ./configure --prefix=/opt/local --disable-static 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && ./configure --prefix=/opt/local --disable-static 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && curl https://raw.githubusercontent.com/Beep6581/RawTherapee/dev/tools/osx/libiconv_1.15_rt.patch -o libiconv_1.15_rt.patch && patch -p1 < libiconv_1.15_rt.patch && make -j8 && sudo make install && libtool --finish /opt/local/lib
 
 cd ~/gettext* && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
