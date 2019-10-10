@@ -45,6 +45,7 @@ git clone https://github.com/fribidi/fribidi.git
 git clone https://github.com/freedesktop/cairomm.git
 git clone https://gitlab.gnome.org/GNOME/gdk-pixbuf.git
 git clone https://github.com/mdadams/jasper.git
+git clone git://anongit.freedesktop.org/xorg/util/macros
 
 #curl https://ftp.gnu.org/gnu/wget/wget-latest.tar.gz -o wget.tar.gz && gunzip -c wget.tar.gz | tar xopf - && rm wget.tar.gz
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
@@ -165,6 +166,8 @@ cd ~/pangomm && git checkout 2.42.0 && sh autogen.sh --prefix=/opt/local --with-
 cd ~/docbook-xml && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/docbook-script1.sh -o docbook-script1.sh && sudo sh docbook-script1.sh
 
 cd ~/docbook-xsl* && curl http://www.linuxfromscratch.org/patches/blfs/svn/docbook-xsl-nons-1.79.2-stack_fix-1.patch -o patch1.patch && patch -Np1 -i patch1.patch && sudo install -v -m755 -d /opt/share/xml/docbook/xsl-stylesheets-1.79.2 && sudo cp -v -R VERSION assembly common eclipse epub epub3 extensions fo   highlighting html htmlhelp images javahelp lib manpages params     profiling roundtrip slides template tests tools webhelp website    xhtml xhtml-1_1 xhtml5       /opt/share/xml/docbook/xsl-stylesheets-1.79.2 && sudo ln -s VERSION /opt/share/xml/docbook/xsl-stylesheets-1.79.2/VERSION.xsl && sudo install -v -m644  README     /opt/share/doc/docbook-xsl-1.79.2/README.txt && sudo install -v -m644    RELEASE-NOTES* NEWS*   /opt/share/doc/docbook-xsl-1.79.2 && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/xslconfig.sh -o xslconfig.sh && sudo sh xslconfig.sh
+
+cd ~/macros && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
 cd ~/libepoxy &&   sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
