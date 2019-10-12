@@ -47,6 +47,8 @@ git clone https://gitlab.gnome.org/GNOME/gdk-pixbuf.git
 git clone https://github.com/mdadams/jasper.git
 git clone git://anongit.freedesktop.org/xorg/util/macros
 git clone https://gitlab.gnome.org/GNOME/gtk-doc.git
+git clone https://gitlab.gnome.org/GNOME/librsvg.git
+git clone https://github.com/rust-lang/rust.git
 
 #curl https://ftp.gnu.org/gnu/wget/wget-latest.tar.gz -o wget.tar.gz && gunzip -c wget.tar.gz | tar xopf - && rm wget.tar.gz
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
@@ -185,7 +187,7 @@ cd ~/gtk &&  meson setup  --prefix=/opt/local --buildtype=release _build .  --cr
 
 cd ~/gtkmm && git checkout 3.24.1 && sh autogen.sh  --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no --enable-introspection=no --enable-man=no --enable-gtk-doc-html=no   'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include"  --libdir=/opt/local/lib && make -j8 && sudo make install
 
-cd ~/librsvg && git checkout 2.44.13 && sh autogen.sh  --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no --enable-introspection=no --enable-man=no --enable-gtk-doc-html=no   'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include"  --libdir=/opt/local/lib && make -j8 && sudo make install
+cd ~/librsvg && git checkout 2.44.13 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no  --enable-gtk-doc=no  CC=clang CXX=clang++ && make -j8 && sudo make install
 
 cd ~/nasm* && sudo install ldrdf nasm ndisasm rdf* rdx /opt/local/bin
 
