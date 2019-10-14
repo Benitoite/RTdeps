@@ -5,10 +5,10 @@
 #  Adapted from http://www.linuxfromscratch.org/blfs/view/cvs/pst/docbook.html
 #  Created by Richard Barber on 11/28/18.
 #  
-install -v -d -m755 /opt/share/xml/docbook/xml-dtd-4.3 && \
+install -v -d -m755 /usr/local/share/xml/docbook/xml-dtd-4.3 && \
 install -v -d -m755 /etc/xml && \
 cp -v -af docbook.cat *.dtd ent/ *.mod \
-/opt/share/xml/docbook/xml-dtd-4.3
+/usr/local/share/xml/docbook/xml-dtd-4.3
 
 # Create (or update) and populate the /etc/xml/docbook catalog file by running the following commands as the root user:
 
