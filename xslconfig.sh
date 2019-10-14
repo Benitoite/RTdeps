@@ -31,5 +31,5 @@ xmlcatalog --noout --add "rewriteURI" \
 /etc/xml/catalog &&
 
 xmlcatalog --noout --add "nextCatalog" \
-"catalog="file:///usr/local/share/xml/docbook-xsl/1.79.2/docbook-xsl/catalog.xml" \ 
+"catalog=file:///usr/local/share/xml/docbook-xsl/1.79.2/docbook-xsl/catalog" \ 
 /etc/xml/catalog
