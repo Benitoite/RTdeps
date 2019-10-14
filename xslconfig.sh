@@ -7,25 +7,29 @@
 #  based on http://www.linuxfromscratch.org/blfs/view/svn/pst/docbook-xsl.html
 if [ ! -d /etc/xml ]; then install -v -m755 -d /etc/xml; fi &&
 if [ ! -f /etc/xml/catalog ]; then
-xmlcatalog --noout --create /etc/xml/catalog
+xmlcatalog --noout --create /etc/xml/catalog.xml
 fi &&
 
 xmlcatalog --noout --add "rewriteSystem" \
 "http://docbook.sourceforge.net/release/xsl/1.79.2" \
 "/usr/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
-/etc/xml/catalog &&
+/etc/xml/catalog.xml &&
 
 xmlcatalog --noout --add "rewriteURI" \
 "http://docbook.sourceforge.net/release/xsl/1.79.2" \
 "/usr/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
-/etc/xml/catalog &&
+/etc/xml/catalog.xml &&
 
 xmlcatalog --noout --add "rewriteSystem" \
 "http://docbook.sourceforge.net/release/xsl/current" \
 "/usr/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
-/etc/xml/catalog &&
+/etc/xml/catalog.xml &&
 
 xmlcatalog --noout --add "rewriteURI" \
 "http://docbook.sourceforge.net/release/xsl/current" \
 "/usr/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
-/etc/xml/catalog
+/etc/xml/catalog.xml &&
+
+xmlcatalog --noout --add "nextCatalog" \
+"catalog="file:///usr/local/share/xml/docbook-xsl/1.79.2/docbook-xsl/catalog.xml" \ 
+/etc/xml/catalog.xml
