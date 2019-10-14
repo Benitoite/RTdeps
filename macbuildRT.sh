@@ -49,6 +49,9 @@ git clone git://anongit.freedesktop.org/xorg/util/macros
 git clone https://gitlab.gnome.org/GNOME/gtk-doc.git
 git clone https://gitlab.gnome.org/GNOME/librsvg.git
 git clone https://github.com/rust-lang/rust.git
+git clone https://gitlab.gnome.org/GNOME/libcroco.git
+git clone https://gitlab.gnome.org/GNOME/libxml2
+git clone https://gitlab.gnome.org/GNOME/libxslt
 
 #curl https://ftp.gnu.org/gnu/wget/wget-latest.tar.gz -o wget.tar.gz && gunzip -c wget.tar.gz | tar xopf - && rm wget.tar.gz
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
@@ -62,16 +65,18 @@ curl http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz -o libiconv.tar.gz
 curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm tex*xz
 curl http://mirror.csclub.uwaterloo.ca/gnu/autoconf-archive/autoconf-archive-2019.01.06.tar.xz  -o autoconf-archive.tar.xz && tar xf autoconf-archive.tar.xz && rm auto*xz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/docbook-xml.zip -o docbook-xml.zip && unzip docbook-xml.zip -d ./docbook-xml && rm doc*zip
-curl https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.tar.gz -o docbook-xsl.tar.gz && tar xvf docbook-xsl.tar.gz
+curl https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.tar.gz -L -o docbook-xsl.tar.gz && tar xvf docbook-xsl.tar.gz
 curl https://www.x.org/archive/individual/util/util-macros-1.19.1.tar.bz2 -o util-macros.tar.bz2 && tar xvjf util-macros.tar.bz2
 curl https://www.nasm.us/pub/nasm/releasebuilds/2.14.03rc2/macosx/nasm-2.14.03rc2-macosx.zip -o nasm.zip && unzip nasm.zip && rm nasm.zip && mv nasm* nasm && export PATH=~/nasm:$PATH
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/adwaita.zip -o adwaita.zip && unzip adwaita.zip && rm adwaita.zip
 curl http://gnu.spinellicreations.com/help2man/help2man-1.47.11.tar.xz -o help2man.tar.xz && tar xf help2man.tar.xz && rm help2man*z
-curl https://downloads.sourceforge.net/project/docbook/OldFiles/docbook-xsl-1.68.1.tar.bz2?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fdocbook%2Ffiles%2FOldFiles%2Fdocbook-xsl-1.68.1.tar.bz2%2Fdownload%3Fuse_mirror%3Dmaster%26download%3D -o docbookxsl1681.tar.bz2 && tar xvjf docbookxsl1681.tar.bz2 && rm docbookxsl1681.tar.bz2
 curl https://ftp.gnu.org/gnu/autoconf-archive/autoconf-archive-2019.01.06.tar.xz -o aa.tar.xz && tar xf aa.tar.xz && rm aa.tar.xz
 curl https://ftp.gnu.org/gnu/m4/m4-latest.tar.xz -o m4-latest.tar.xz && tar xf m4-latest.tar.xz && rm m4-latest.tar.xz
+curl https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tar.xz -o py.tar.xz && tar xf py.tar.xz && rm py.tar.xz
 
 # Build tools and libraries
+
+cd ~/Python* && ./configure && make -j8 && sudo make install
 
 cd ~/CMake && ./configure --prefix=/opt/local && make -j8 && sudo make install && export PATH=/opt/local/bin:$PATH
 
@@ -169,6 +174,10 @@ cd ~/cairomm && git checkout cairomm-1-14 &&  sh autogen.sh --prefix=/opt/local 
 
 cd ~/pangomm && git checkout 2.42.0 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" && make -j8 && sudo make install
 
+cd ~/libxml2 && sh autogen.sh && make -j8 && sudo make install
+
+cd ~/libxslt && sh autogen.sh && make -j8 && sudo make install
+
 cd ~/docbook-xml && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/docbook-script1.sh -o docbook-script1.sh && sudo sh docbook-script1.sh
 
 cd ~/docbook-xsl* && curl http://www.linuxfromscratch.org/patches/blfs/svn/docbook-xsl-nons-1.79.2-stack_fix-1.patch -o patch1.patch && patch -Np1 -i patch1.patch || sudo install -v -m755 -d /opt/share/xml/docbook/xsl-stylesheets-1.68.1 && sudo cp -v -R VERSION assembly common eclipse epub epub3 extensions fo   highlighting html htmlhelp images javahelp lib manpages params     profiling roundtrip slides template tests tools webhelp website    xhtml xhtml-1_1 xhtml5       /opt/share/xml/docbook/xsl-stylesheets-1.68.1 && sudo ln -s VERSION /opt/share/xml/docbook/xsl-stylesheets-1.79.2/VERSION.xsl && sudo install -v -m644  README     /opt/share/doc/docbook-xsl-1.68.1/README.txt && sudo install -v -m644    RELEASE-NOTES* NEWS*   /opt/share/doc/docbook-xsl-1.68.1 && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/xslconfig.sh -o xslconfig.sh && sudo sh xslconfig.sh
@@ -187,7 +196,9 @@ cd ~/gtk &&  meson setup  --prefix=/opt/local --buildtype=release _build .  --cr
 
 cd ~/gtkmm && git checkout 3.24.1 && sh autogen.sh  --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no --enable-introspection=no --enable-man=no --enable-gtk-doc-html=no   'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include"  --libdir=/opt/local/lib && make -j8 && sudo make install
 
-cd ~/librsvg && git checkout 2.44.13 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no  --enable-gtk-doc=no  CC=clang CXX=clang++ && make -j8 && sudo make install
+cd ~ && curl https://sh.rustup.rs -sSf | sh
+
+cd ~/librsvg && git checkout 2.46.0 && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no  --enable-gtk-doc=no  CC=clang CXX=clang++ && make -j8 && sudo make install
 
 cd ~/nasm* && sudo install ldrdf nasm ndisasm rdf* rdx /opt/local/bin
 
