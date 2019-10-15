@@ -52,6 +52,7 @@ git clone https://github.com/rust-lang/rust.git
 git clone https://gitlab.gnome.org/GNOME/libcroco.git
 git clone https://gitlab.gnome.org/GNOME/libxml2
 git clone https://gitlab.gnome.org/GNOME/libxslt
+git clone https://gitlab.gnome.org/GNOME/gtk-mac-integration.git
 
 #curl https://ftp.gnu.org/gnu/wget/wget-latest.tar.gz -o wget.tar.gz && gunzip -c wget.tar.gz | tar xopf - && rm wget.tar.gz
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
