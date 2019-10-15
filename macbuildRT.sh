@@ -53,6 +53,7 @@ git clone https://gitlab.gnome.org/GNOME/libcroco.git
 git clone https://gitlab.gnome.org/GNOME/libxml2
 git clone https://gitlab.gnome.org/GNOME/libxslt
 git clone https://gitlab.gnome.org/GNOME/gtk-mac-integration.git
+git clone https://github.com/llvm-mirror/openmp.git
 
 #curl https://ftp.gnu.org/gnu/wget/wget-latest.tar.gz -o wget.tar.gz && gunzip -c wget.tar.gz | tar xopf - && rm wget.tar.gz
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
@@ -212,6 +213,8 @@ cd ~/fftw* &&  ./configure  --prefix=/opt/local --with-sysroot=/Applications/Xco
 cd ~/gtk-mac* && sh autogen.sh  --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk  --libdir=/opt/local/lib --enable-debug=no  'CFLAGS= -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS= -arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CPPFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" --enable-introspection=no  --with-gtk3 && make -j8 && sudo make install
 
 cd ~ && sudo ditto Adwaita /opt/local/share/icons/Adwaita
+
+cd ~/openmp && mkdir build && cd build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local  -DCMAKE_MACOSX_RPATH=/opt/local/lib -DCMAKE_SHARED_LINKER_FLAGS="-L /opt/local/lib -rpath /opt/local/lib" && make -j8 && sudo make install
 
 # RawTherapee
 
