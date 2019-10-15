@@ -176,7 +176,7 @@ cd ~/pangomm && git checkout 2.42.0 && sh autogen.sh --prefix=/opt/local --with-
 
 cd ~/libxml2 && sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
 
-cd ~/libcroco && sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
+cd ~/libcroco && sh autogen.sh --prefix=/opt/local --disable-Bsymbolic && make -j8 && sudo make install
 
 cd ~/libxslt && sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
 
@@ -202,7 +202,7 @@ cd ~/gtkmm && git checkout 3.24.1 && sh autogen.sh  --prefix=/opt/local --with-s
 
 cd ~ && curl https://sh.rustup.rs -sSf | sh
 
-cd ~/librsvg && git checkout 2.46.0 && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no  --enable-gtk-doc=no  CC=clang CXX=clang++ && make -j8 && sudo make install
+cd ~/librsvg && git checkout 2.46.0 &&  ln -s /opt/local/lib/libz.1.dylib ./libz.1.dylib && sudo install_name_tool -change libz.1.dylib @rpath/libz.1.dylib /opt/local/lib/libpng16.16.dylib && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no  --enable-gtk-doc=no  CC=clang CXX=clang++ && make -j8 && sudo make install
 
 cd ~/nasm* && sudo install ldrdf nasm ndisasm rdf* rdx /opt/local/bin
 
