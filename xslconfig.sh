@@ -30,6 +30,12 @@ xmlcatalog --noout --add "rewriteURI" \
 "/usr/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
 /etc/xml/catalog &&
 
-xmlcatalog --noout --add "nextCatalog" \
-"catalog=file:///usr/local/share/xml/docbook-xsl/1.79.2/docbook-xsl/catalog" \ 
-/etc/xml/catalog
+xmlcatalog --noout --add "rewriteSystem" \
+           "http://docbook.sourceforge.net/release/xsl/1.79.2" \
+           "/usr/share/xml/docbook/xsl-stylesheets-1.79.2" \
+    /etc/xml/catalog &&
+
+xmlcatalog --noout --add "rewriteURI" \
+           "http://docbook.sourceforge.net/release/xsl/1.79.2" \
+           "/usr/share/xml/docbook/xsl-stylesheets-1.79.2" \
+    /etc/xml/catalog
