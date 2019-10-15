@@ -65,7 +65,7 @@ curl http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz -o libiconv.tar.gz
 curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm tex*xz
 curl http://mirror.csclub.uwaterloo.ca/gnu/autoconf-archive/autoconf-archive-2019.01.06.tar.xz  -o autoconf-archive.tar.xz && tar xf autoconf-archive.tar.xz && rm auto*xz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/docbook-xml.zip -o docbook-xml.zip && unzip docbook-xml.zip -d ./docbook-xml && rm doc*zip
-curl https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.tar.gz -L -o docbook-xsl.tar.gz && tar xvf docbook-xsl.tar.gz
+curl https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-1.79.2.tar.gz -L -o docbook-xsl.tar.gz && tar xvf docbook-xsl.tar.gz && rm docbook-xsl*gz
 curl https://www.x.org/archive/individual/util/util-macros-1.19.1.tar.bz2 -o util-macros.tar.bz2 && tar xvjf util-macros.tar.bz2
 curl https://www.nasm.us/pub/nasm/releasebuilds/2.14.03rc2/macosx/nasm-2.14.03rc2-macosx.zip -o nasm.zip && unzip nasm.zip && rm nasm.zip && mv nasm* nasm && export PATH=~/nasm:$PATH
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/adwaita.zip -o adwaita.zip && unzip adwaita.zip && rm adwaita.zip
@@ -174,13 +174,17 @@ cd ~/cairomm && git checkout cairomm-1-14 &&  sh autogen.sh --prefix=/opt/local 
 
 cd ~/pangomm && git checkout 2.42.0 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" && make -j8 && sudo make install
 
-cd ~/libxml2 && sh autogen.sh && make -j8 && sudo make install
+cd ~/libxml2 && sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
 
-cd ~/libxslt && sh autogen.sh && make -j8 && sudo make install
+cd ~/libcroco && sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
+
+cd ~/libxslt && sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
+
+cd ~ && curl http://www.oasis-open.org/docbook/xml/4.2/docbook-xml-4.2.zip -o docbook-xml-4.2.zip && sudo mkdir -p /usr/local/share/docbook-xml-4.2 && cd /usr/local/share/docbook-xml-4.2 && sudo unzip ~/docbook-xml-4.2 && cd ~ && curl http://downloads.sourceforge.net/docbook/docbook-xsl-1.73.2.tar.bz2 -L -o docbookxsl.tar.bz2 && cd /usr/local/share && sudo tar xjvf ~/docbookxsl.tar.bz2 && rm ~/docbookxsl.tar.bz2 &&  export XML_CATALOG_FILES="/usr/local/share/docbook-xsl-1.73.2/catalog /usr/local/share/docbook-xml-4.2/catalog"
 
 cd ~/docbook-xml && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/docbook-script1.sh -o docbook-script1.sh && sudo sh docbook-script1.sh
 
-cd ~/docbook-xsl* && curl http://www.linuxfromscratch.org/patches/blfs/svn/docbook-xsl-nons-1.79.2-stack_fix-1.patch -o patch1.patch && patch -Np1 -i patch1.patch || sudo install -v -m755 -d /opt/share/xml/docbook/xsl-stylesheets-1.68.1 && sudo cp -v -R VERSION assembly common eclipse epub epub3 extensions fo   highlighting html htmlhelp images javahelp lib manpages params     profiling roundtrip slides template tests tools webhelp website    xhtml xhtml-1_1 xhtml5       /opt/share/xml/docbook/xsl-stylesheets-1.68.1 && sudo ln -s VERSION /opt/share/xml/docbook/xsl-stylesheets-1.79.2/VERSION.xsl && sudo install -v -m644  README     /opt/share/doc/docbook-xsl-1.68.1/README.txt && sudo install -v -m644    RELEASE-NOTES* NEWS*   /opt/share/doc/docbook-xsl-1.68.1 && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/xslconfig.sh -o xslconfig.sh && sudo sh xslconfig.sh
+cd ~/docbook-xsl* && curl http://www.linuxfromscratch.org/patches/blfs/svn/docbook-xsl-nons-1.79.2-stack_fix-1.patch -o patch1.patch && patch -Np1 -i patch1.patch || sudo install -v -m755 -d /usr/local/share/xml/docbook/xsl-stylesheets-1.79.2 && sudo cp -v -R VERSION assembly common eclipse epub epub3 extensions fo   highlighting html htmlhelp images javahelp lib manpages params     profiling roundtrip slides template tests tools webhelp website    xhtml xhtml-1_1 xhtml5       /usr/local/share/xml/docbook/xsl-stylesheets-1.79.2 && sudo ln -s VERSION /usr/local/share/xml/docbook/xsl-stylesheets-1.79.2/VERSION.xsl && sudo install -v -m644  README     /usr/local/share/doc/docbook-xsl-1.79.2/README.txt && sudo install -v -m644    RELEASE-NOTES* NEWS*   /usr/local/share/doc/docbook-xsl-1.79.2 && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/xslconfig.sh -o xslconfig.sh && sudo sh xslconfig.sh && install -d /usr/local/share/xml/docbook-xsl/1.79.2/docbook-xsl && sudo install catalog.xml /usr/local/share/xml/docbook-xsl/1.79.2/docbook-xsl/catalog.xml
 
 cd ~/macros && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
