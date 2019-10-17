@@ -1,0 +1,12 @@
+[binaries]
+strip = 'strip'
+[properties]
+sys_root = '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk'
+c_args = ['-I/opt/local/include', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
+cxx_args = ['-I/opt/local/include', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
+c_link_args = ['-L/opt/local/lib', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
+[host]
+system = 'darwin'
+cpu_family = 'x86_64'
+cpu = 'x86_64'
+endian = 'little'
