@@ -59,9 +59,9 @@ git clone https://github.com/llvm-mirror/openmp.git
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
 curl http://fftw.org/fftw-3.3.8.tar.gz -o fftw.tar.gz && gunzip -c fftw.tar.gz | tar xopf - && rm fftw.tar.gz
 curl https://www.openmprtl.org/sites/default/files/libomp_20160808_oss.tgz -o libiomp.tgz && tar -xvzf libiomp.tgz && rm libiomp.tgz
-curl http://download.osgeo.org/libtiff/tiff-4.0.10.zip -o tiff.zip && unzip tiff.zip -d tiff && rm tiff*zip
+curl http://download.osgeo.org/libtiff/tiff-4.10.0.zip -o tiff.zip && unzip tiff.zip -d tiff && rm tiff*zip
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/xz.zip -o xz.zip && unzip xz.zip && tar -xvf xz*tar  && rm xz.zip && rm xz*tar
-curl --user anonymous:example@ftp.com ftp://ftp.gnu.org/gnu/gettext/gettext-0.19.8.1.tar.gz -o gettext.tar.gz && gunzip -c gettext.tar.gz | tar xopf - && rm gettext.tar.gz
+curl --user anonymous:example@ftp.com ftp://ftp.gnu.org/gnu/gettext/gettext-0.20.1.tar.gz -o gettext.tar.gz && gunzip -c gettext.tar.gz | tar xopf - && rm gettext.tar.gz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/bzip2.zip -o bzip2.zip && unzip bzip2.zip && tar -xvf bzip*tar  && rm bzip2.zip && rm bzip*tar
 curl http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.16.tar.gz -o libiconv.tar.gz && tar xf libiconv.tar.gz && rm libiconv*gz
 curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm tex*xz
