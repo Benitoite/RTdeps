@@ -163,7 +163,7 @@ cd ~/autoconf-archive* && ./configure --prefix=/opt/local && make && sudo make i
 
 #cd ~/gobject-introspection &&  git checkout 1.60.0 && ln -s /opt/local/lib/libz.1.dylib ./libz.1.dylib || sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes --disable-doctool --enable-gtk-doc-html=no 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CPPFLAGS="-I/opt/local/include" && make -j8 && sudo make install
 
-cd ~/gobject-introspection &&  git checkout 1.62.0 && meson setup _build . --prefix=/opt/local --buildtype release --default-library both --includedir ../../usr/local/include/python3.7m --optimization 3 --cross-file ~/maccross && ninja -C _build && sudo ninja -C _build install
+cd ~/gobject-introspection && ln -s /usr/local/include/python3.7m/*.h /opt/local/include && git checkout 1.62.0 && meson setup _build . --prefix=/opt/local --buildtype release --default-library both --optimization 3 --cross-file ~/maccross && ninja -C _build && sudo ninja -C _build install
 
 cd ~/atk &&  meson setup _build . --prefix=/opt/local --cross-file ~/gtk/maccross && ninja -C _build &&  sed -i -e 's/-current_version=1/-current_version 1/g' _build/build.ninja && sed -i -e 's/-compatibility_version=1/-compatibility_version 1/g' _build/build.ninja && ninja -C _build && sudo ninja -C _build install
 
