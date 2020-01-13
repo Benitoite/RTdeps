@@ -40,7 +40,7 @@ git clone https://github.com/ninja-build/ninja.git
 git clone https://github.com/mesonbuild/meson.git
 git clone https://github.com/doxygen/doxygen.git
 git clone https://gitlab.gnome.org/GNOME/mm-common.git
-git clone https://github.com/GNOME/pangomm.git
+git clone https://gitlab.gnome.org/GNOME/pangomm.git
 git clone https://github.com/fribidi/fribidi.git
 git clone https://github.com/freedesktop/cairomm.git
 git clone https://gitlab.gnome.org/GNOME/gdk-pixbuf.git
@@ -167,25 +167,31 @@ cd ~/gobject-introspection &&  ln -s -f /Library/Frameworks/Python.framework/Ver
 
 cd ~/atk &&  meson setup _build . --prefix=/opt/local --cross-file ~/maccross && ninja -C _build &&  sed -i -e 's/-current_version=1/-current_version 1/g' _build/build.ninja && sed -i -e 's/-compatibility_version=1/-compatibility_version 1/g' _build/build.ninja && ninja -C _build && sudo ninja -C _build install
 
-cd ~/glibmm && git checkout 2.51.7 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -std=c++17" && make -j8 && sudo make install
+#cd ~/glibmm && git checkout 2.51.7 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -std=c++17" && make -j8 && sudo make install
+
+cd ~/glibmm && git checkout 2.62.0 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -std=c++17" && make -j8 && sudo make install
 
 cd ~/atkmm && git checkout 2.24.2 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
 cd ~/harfbuzz && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" --with-glib=yes --with-graphite2=yes && make -j8 && sudo make install && sudo install_name_tool -change libgraphite2.3.dylib /opt/local/lib/libgraphite2.3.dylib /opt/local/lib/libharfbuzz.0.dylib
 
-cd ~/fribidi && git checkout f2c9d50722cb60d0cdec3b1bafba9029770e86b4 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" --disable-docs && make -j8 && sudo make install
+#cd ~/fribidi && git checkout f2c9d50722cb60d0cdec3b1bafba9029770e86b4 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" --disable-docs && make -j8 && sudo make install
 
-cd ~/pango && git checkout 1.43.0 && meson wrap promote subprojects/glib/subprojects/proxy-libintl.wrap && mkdir build && cd build && meson --prefix=/opt/local --sysconfdir=/etc .. && ninja && sudo ninja install
+#cd ~/fribidi && git checkout v1.0.8 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
+
+cd ~/fribidi && git checkout v1.0.8 && meson _build -Ddocs=false --prefix=/opt/local --buildtype release --default-library both --optimization 3 --cross-file ~/maccross && ninja -C _build && sudo ninja -C _build install
+
+cd ~/pango && git checkout 1.43.0 && meson wrap promote subprojects/glib/subprojects/proxy-libintl.wrap && mkdir build || cd build && meson --prefix=/opt/local --sysconfdir=/etc --buildtype release --default-library both --optimization 3 --cross-file ~/maccross .. && ninja && sudo ninja install
 
 cd ~/cairomm && git checkout cairomm-1-14 &&  sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" && make -j8 && sudo make install
 
-cd ~/pangomm && git checkout 2.42.0 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" && make -j8 && sudo make install
+cd ~/pangomm && git checkout pangomm-2-42 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" && make -j8 && sudo make install
 
-cd ~/libxml2 && sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
+cd ~/libxml2 && git pull && sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
 
-cd ~/libcroco && sh autogen.sh --prefix=/opt/local --disable-Bsymbolic && make -j8 && sudo make install
+cd ~/libcroco && git pull && sh autogen.sh --prefix=/opt/local --disable-Bsymbolic && make -j8 && sudo make install
 
-cd ~/libxslt && sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
+cd ~/libxslt && git pull && sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
 
 cd ~ && curl http://www.oasis-open.org/docbook/xml/4.2/docbook-xml-4.2.zip -o docbook-xml-4.2.zip && sudo mkdir -p /usr/local/share/docbook-xml-4.2 && cd /usr/local/share/docbook-xml-4.2 && sudo unzip ~/docbook-xml-4.2 && cd ~ && curl http://downloads.sourceforge.net/docbook/docbook-xsl-1.73.2.tar.bz2 -L -o docbookxsl.tar.bz2 && cd /usr/local/share && sudo tar xjvf ~/docbookxsl.tar.bz2 && rm ~/docbookxsl.tar.bz2 &&  export XML_CATALOG_FILES="/usr/local/share/docbook-xsl-1.73.2/catalog /usr/local/share/docbook-xml-4.2/catalog"
 
@@ -195,9 +201,11 @@ cd ~/docbook-xsl* && curl http://www.linuxfromscratch.org/patches/blfs/svn/docbo
 
 cd ~/macros && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
-cd ~/libepoxy &&   sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
+#cd ~/libepoxy &&   sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
-cd ~/jasper && mkdir _build && cd _build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local && make -j8 && sudo make install
+cd ~/libepoxy && meson _build -Ddocs=false --prefix=/opt/local --buildtype release --default-library both --optimization 3 --cross-file ~/maccross && ninja -C _build && sudo ninja -C _build install
+
+cd ~/jasper && mkdir _build || cd _build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local && make -j8 && sudo make install
 
 cd ~/gdk-pixbuf && CFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib -Wl,-rpath,/opt/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" meson _build -Dx11=false -Dman=false --prefix=/opt/local && cd _build && CFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib -Wl,-rpath,/opt/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" ninja && sudo ninja install
 
