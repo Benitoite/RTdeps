@@ -205,19 +205,19 @@ cd ~/macros && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xc
 
 cd ~/libepoxy && meson _build -Ddocs=false --prefix=/opt/local --buildtype release --default-library both --optimization 3 --cross-file ~/maccross && ninja -C _build && sudo ninja -C _build install
 
-cd ~/jasper && mkdir _build || cd _build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local && make -j8 && sudo make install
+cd ~/jasper && rm -r _build || mkdir _build && cd _build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local && make -j8 && sudo make install
 
 cd ~/gdk-pixbuf && git checkout gdk-pixbuf-2-40 && CFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib -Wl,-rpath,/opt/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" meson _build -Dx11=false -Dman=false --prefix=/opt/local  -Ddocs=false --prefix=/opt/local --buildtype release --default-library both --optimization 3 --cross-file ~/maccross && cd _build && CFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib -Wl,-rpath,/opt/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" ninja && sudo ninja install && sudo install_name_tool -add_rpath /opt/local/lib /opt/local/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-png.so
 
-cd ~/gtk && git checkout gtk-3-24 && meson setup  --prefix=/opt/local --buildtype=release _build .  --cross-file maccross --optimization 3  -Dtests=false && ninja -C _build && sudo ninja install -C _build
+cd ~/gtk && git checkout gtk-3-24 && meson setup  --prefix=/opt/local --buildtype=release _build .  --cross-file ~/maccross --optimization 3  -Dtests=false && ninja -C _build && sudo ninja install -C _build
 
 #cd ~/gtk && autoreconf -fvi || ./configure --without-gtk-doc --libdir=/opt/local/lib --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-quartz-backend --enable-debug=no --enable-introspection=yes --disable-man --enable-gtk-doc=no --enable-gtk-doc-html=no --disable-dependency-tracking  'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib -Wl,-rpath,/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include"  && DYLD_SEARCH_PATH=/opt/local/lib make -j8 && sudo make install
 
-cd ~/gtkmm && git checkout 3.24.1 && sh autogen.sh  --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no --enable-introspection=no --enable-man=no --enable-gtk-doc-html=no   'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include"  --libdir=/opt/local/lib && make -j8 && sudo make install
+cd ~/gtkmm && git checkout gtkmm-3-24 && sh autogen.sh  --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no --enable-introspection=no --enable-man=no --enable-gtk-doc-html=no   'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include"  --libdir=/opt/local/lib && make -j8 && sudo make install
 
 cd ~ && curl https://sh.rustup.rs -sSf | sh
 
-cd ~/librsvg && git checkout 2.46.0 &&  ln -s /opt/local/lib/libz.1.dylib ./libz.1.dylib && sudo install_name_tool -change libz.1.dylib @rpath/libz.1.dylib /opt/local/lib/libpng16.16.dylib && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk   --enable-debug=no  --enable-gtk-doc=no  CC=clang CXX=clang++ && make -j8 && sudo make install
+cd ~/librsvg && git checkout librsvg-2.46 &&  ln -s /opt/local/lib/libz.1.dylib ./libz.1.dylib || sudo install_name_tool -change libz.1.dylib @rpath/libz.1.dylib /opt/local/lib/libpng16.16.dylib && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-introspection=no --enable-debug=no --enable-gtk-doc=no CC=clang CXX=clang++ && make -j8 && sudo make install
 
 cd ~/nasm* && sudo install ldrdf nasm ndisasm rdf* rdx /opt/local/bin
 
@@ -227,7 +227,7 @@ cd ~/gtk-mac* && sh autogen.sh  --prefix=/opt/local --with-sysroot=/Applications
 
 cd ~ && sudo ditto Adwaita /opt/local/share/icons/Adwaita
 
-cd ~/openmp && mkdir build && cd build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local  -DCMAKE_MACOSX_RPATH=/opt/local/lib -DCMAKE_SHARED_LINKER_FLAGS="-L /opt/local/lib -rpath /opt/local/lib" && make -j8 && sudo make install
+cd ~/openmp && rm -r build || mkdir build && cd build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local  -DCMAKE_MACOSX_RPATH=/opt/local/lib -DCMAKE_SHARED_LINKER_FLAGS="-L /opt/local/lib -rpath /opt/local/lib" && make -j8 && sudo make install
 
 # RawTherapee
 
