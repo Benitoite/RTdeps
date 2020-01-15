@@ -56,6 +56,7 @@ git clone https://gitlab.gnome.org/GNOME/gtk-mac-integration.git
 git clone https://github.com/llvm-mirror/openmp.git
 git clone git://git.savannah.gnu.org/gnulib.git
 
+curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/maccross -o maccross 
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
 curl http://fftw.org/fftw-3.3.8.tar.gz -o fftw.tar.gz && gunzip -c fftw.tar.gz | tar xopf - && rm fftw.tar.gz
 curl https://www.openmprtl.org/sites/default/files/libomp_20160808_oss.tgz -o libiomp.tgz && tar -xvzf libiomp.tgz && rm libiomp.tgz
