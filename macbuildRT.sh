@@ -55,6 +55,8 @@ git clone https://gitlab.gnome.org/GNOME/libxslt
 git clone https://gitlab.gnome.org/GNOME/gtk-mac-integration.git
 git clone https://github.com/llvm-mirror/openmp.git
 git clone git://git.savannah.gnu.org/gnulib.git
+git clone https://github.com/itstool/itstool.git
+git clone https://gitlab.freedesktop.org/xdg/shared-mime-info.git
 
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/maccross -o maccross 
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
@@ -142,6 +144,10 @@ cd ~/pixman && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xc
 cd ~/cairo && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" --enable-quartz-image --enable-quartz-font --enable-quartz --enable-ft --disable-xlib --without-x && make -j8 && sudo make install && sudo install_name_tool -add_rpath /opt/local/lib /opt/local/lib/libcairo.2.dylib
 
 cd ~/mm-common && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" --disable-documentation && make -j8 && sudo make install
+
+cd ~/itstool && sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
+
+cd ~/shared-mime-info && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" --disable-documentation && make -j8 && sudo make install
 
 cd ~/libsigcplusplus && git checkout 3.0.2 && sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" --disable-documentation && make -j8 && sudo make install
 
