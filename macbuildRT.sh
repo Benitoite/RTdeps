@@ -57,6 +57,8 @@ git clone https://github.com/llvm-mirror/openmp.git
 git clone git://git.savannah.gnu.org/gnulib.git
 git clone https://github.com/itstool/itstool.git
 git clone https://gitlab.freedesktop.org/xdg/shared-mime-info.git
+git clone https://git.savannah.gnu.org/git/wget.git
+git clone https://git.savannah.gnu.org/git/bison.git
 
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/maccross -o maccross 
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
@@ -96,6 +98,10 @@ cd ~/libtool &&  ./bootstrap &&  ./configure --prefix=/opt/local && make -j8 && 
 cd ~/pkg-config && sh ./autogen.sh --prefix=/opt/local --with-internal-glib && make -j8 && sudo make install
 
 cd ~/openssl && ./config --prefix=/opt/local && make -j8 && sudo make install
+
+cd ~/wget && make clean || git pull && ./bootstrap && ./configure --prefix=/opt/local --enable-assert && make -j8 && sudo make install
+
+cd ~/bison && make clean || git pull && git submodule update --init && ./bootstrap && ./configure --prefix=/opt/local && make -j8 && sudo make install
 
 cd ~/gettext* && ln -s ~/gnulib . || sh autogen.sh --without-git --with-included-gettext --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && ./configure --without-git --with-included-gettext --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes  --enable-static=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
 
@@ -155,7 +161,7 @@ cd ~/texinfo* && ./configure --prefix=/opt/local --with-sysroot=/Applications/Xc
 
 cd ~/autoconf-archive* && ./configure --prefix=/opt/local && make && sudo make install
 
-cd ~/gobject-introspection && ln -s -f /Library/Frameworks/Python.framework/Versions/3.7/include/python3.7m/*.h /opt/local/include && git checkout master && sudo rm -r _build || CC=clang CXX=clang++ CFLAGS="-Wl,-rpath,/opt/local/lib -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib" CXXFLAGS="-Wl,-rpath -Wl,/opt/local/lib -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" meson setup _build . --prefix=/opt/local --buildtype release --default-library both --optimization 3 --cross-file ~/maccross && CC=clang CXX=clang++ CFLAGS="-Wl,-rpath -Wl,/opt/local/lib -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib" CXXFLAGS="-Wl,-rpath -Wl,/opt/local/lib -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" ninja -C _build && sudo ninja -C _build install
+cd ~/gobject-introspection && ln -s -f /Library/Frameworks/Python.framework/Versions/3.7/include/python3.7m/*.h /opt/local/include && git checkout master && sudo rm -r _build || CC=clang CXX=clang++ CFLAGS="-Wl,-rpath,/opt/local/lib -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib" CXXFLAGS="-Wl,-rpath -Wl,/opt/local/lib -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" meson setup _build . --prefix=/opt/local -D doctool=disabled --buildtype release --default-library both --optimization 3 --cross-file ~/maccross && CC=clang CXX=clang++ CFLAGS="-Wl,-rpath -Wl,/opt/local/lib -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib" CXXFLAGS="-Wl,-rpath -Wl,/opt/local/lib -arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" ninja -C _build && sudo ninja -C _build install
 
 cd ~/atk && rm -r _build || meson setup _build . --prefix=/opt/local --cross-file ~/maccross && ninja -C _build &&  sed -i -e 's/-current_version=1/-current_version 1/g' _build/build.ninja && sed -i -e 's/-compatibility_version=1/-compatibility_version 1/g' _build/build.ninja && ninja -C _build && sudo ninja -C _build install
 
