@@ -1,12 +1,22 @@
 [binaries]
 strip = 'strip'
+c = 'clang'
+cpp = 'clang++'
+ld = 'ld'
 [properties]
+c_args = ['-mtune=generic', '-v', '-fstrict-aliasing', '-arch', 'x86_64', '-I/opt/local/include', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
+cxx_args = ['-mtune=generic', '-v', '-fstrict-aliasing', '-arch', 'x86_64', '-I/opt/local/include', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
+objc_args = ['-mtune=generic', '-v', '-fstrict-aliasing', '-arch', 'x86_64', '-I/opt/local/include', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
+c_link_args = ['/opt/local/lib/libintl.8.dylib', '/opt/local/lib/libiconv.2.dylib', '-Wl,-rpath', '-Wl,/opt/local/lib', '-bind_at_load', '-mtune=generic', '-v', '-L/opt/local/lib', '-fstrict-aliasing', '-arch', 'x86_64', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
+cpp_link_args = ['/opt/local/lib/libintl.8.dylib', '/opt/local/lib/libiconv.2.dylib', '-Wl,-rpath', '-Wl,/opt/local/lib', '-bind_at_load', '-mtune=generic', '-v', '-L/opt/local/lib', '-fstrict-aliasing', '-arch', 'x86_64', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
+objc_link_args = ['/opt/local/lib/libintl.8.dylib', '/opt/local/lib/libiconv.2.dylib', '-Wl,-rpath', '-Wl,/opt/local/lib', '-bind_at_load', '-mtune=generic', '-v', '-L/opt/local/lib', '-fstrict-aliasing', '-arch', 'x86_64', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
+pkg_config_libdir = '/opt/local/lib/pkgconfig'
 sys_root = '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk'
-c_args = ['-I/opt/local/include', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
-cxx_args = ['-I/opt/local/include', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
-c_link_args = ['-L/opt/local/lib', '-O3', '-mmacosx-version-min=10.9', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
+sdk_args = ['-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk']
 [host]
 system = 'darwin'
 cpu_family = 'x86_64'
 cpu = 'x86_64'
 endian = 'little'
+[paths]
+prefix = '/opt/local'
