@@ -58,7 +58,7 @@ git clone git://git.savannah.gnu.org/gnulib.git
 git clone https://github.com/itstool/itstool.git
 git clone https://gitlab.freedesktop.org/xdg/shared-mime-info.git
 git clone https://git.savannah.gnu.org/git/bison.git
-git clone https://github.com/andreyvit/create-dmg.git
+https://github.com/Benitoite/rt-create-dmg.git
 
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/maccross -o maccross
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
@@ -220,7 +220,7 @@ cd ~ && sudo ditto Adwaita /opt/local/share/icons/Adwaita
 
 cd ~/openmp && sudo rm -f -r build && mkdir build && cd build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local -DCMAKE_MACOSX_RPATH=/opt/local/lib -DCMAKE_SHARED_LINKER_FLAGS="-L /opt/local/lib -Wl,-rpath -Wl,/opt/local/lib" && make -j8 && sudo make install
 
-cd ~/create-dmg && chmod 4755 create-dmg && sudo ln -s ~/create-dmg/create-dmg /opt/local/bin
+cd ~/rt-create-dmg && chmod 4755 create-dmg && sudo ln -s ~/rt-create-dmg/create-dmg /opt/local/bin
 
 # RawTherapee
 
