@@ -79,7 +79,7 @@ curl https://www.nasm.us/pub/nasm/releasebuilds/2.14.03rc2/macosx/nasm-2.14.03rc
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/adwaita.zip -o adwaita.zip && unzip adwaita.zip && rm adwaita.zip
 curl http://gnu.spinellicreations.com/help2man/help2man-1.47.11.tar.xz -o help2man.tar.xz && tar xf help2man.tar.xz && rm help2man*z
 curl https://ftp.gnu.org/gnu/autoconf-archive/autoconf-archive-2019.01.06.tar.xz -o aa.tar.xz && tar xf aa.tar.xz && rm aa.tar.xz
-curl https://ftp.gnu.org/gnu/m4/m4-latest.tar.xz -o m4-latest.tar.xz && tar xf m4-latest.tar.xz && rm m4-latest.tar.xz
+curl https://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz -o m4.tar.xz && tar xf m4.tar.xz && rm m4.tar.xz && mv m4-1.4.18 m4-code
 curl https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tar.xz -o py.tar.xz && tar xf py.tar.xz && rm py.tar.xz
 
 # Build tools and libraries
@@ -103,6 +103,8 @@ cd ~/pkg-config && CC=clang CXX=clang++ sh ./autogen.sh --prefix=/opt/local --wi
 cd ~/openssl && CC=clang CXX=clang++ ./config --prefix=/opt/local && make -j8 && sudo make install
 
 cd ~/wget && make clean || git pull && ./bootstrap && CC=clang CXX=clang++ ./configure --prefix=/opt/local --disable-dependency-tracking --enable-assert --with-ssl=openssl && make -j8 && sudo make install
+
+cd ~/m4-code && curl https://raw.githubusercontent.com/macports/macports-ports/edf0ee1e2cf/devel/m4/files/secure_snprintf.patch -o patch && patch -p0 < patch && ./configure --prefix=/opt/local && make -j8 && sudo make install
 
 cd ~/bison && make clean || git pull && git submodule update --init && ./bootstrap && CC=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install
 
