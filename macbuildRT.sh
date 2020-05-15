@@ -59,6 +59,7 @@ git clone https://github.com/itstool/itstool.git
 git clone https://gitlab.freedesktop.org/xdg/shared-mime-info.git
 git clone https://git.savannah.gnu.org/git/bison.git
 git clone https://github.com/Benitoite/rt-create-dmg.git
+git clone git://git.sv.gnu.org/sed
 
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/maccross -o maccross
 curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
@@ -67,7 +68,7 @@ curl https://www.openmprtl.org/sites/default/files/libomp_20160808_oss.tgz -o li
 curl http://download.osgeo.org/libtiff/tiff-4.1.0.zip -o tiff.zip && unzip tiff.zip -d tiff && rm tiff*zip
 curl http://ftp.gnu.org/gnu/wget/wget-1.20.3.tar.gz -o wget.tar.gz && tar xf wget.tar.gz && rm wget*gz
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/xz.zip -o xz.zip && unzip xz.zip && tar -xvf xz*tar && rm xz.zip && rm xz*tar
-curl --user anonymous:example@ftp.com ftp://ftp.gnu.org/gnu/gettext/gettext-0.20.2.tar.gz -o gettext.tar.gz && gunzip -c gettext.tar.gz | tar xopf - && rm gettext.tar.gz && mv gettext-0* gettext-0
+#curl --user anonymous:example@ftp.com ftp://ftp.gnu.org/gnu/gettext/gettext-0.20.2.tar.gz -o gettext.tar.gz && gunzip -c gettext.tar.gz | tar xopf - && rm gettext.tar.gz && mv gettext-0* gettext-0
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/bzip2.zip -o bzip2.zip && unzip bzip2.zip && tar -xvf bzip*tar && rm bzip2.zip && rm bzip*tar
 curl http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.16.tar.gz -o libiconv.tar.gz && tar xf libiconv.tar.gz && rm libiconv*gz && mv libiconv-1* libiconv-1
 curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm tex*xz
@@ -109,7 +110,9 @@ cd ~/m4-code && curl https://raw.githubusercontent.com/macports/macports-ports/e
 
 cd ~/bison && make clean || git pull && git submodule update --init && ./bootstrap && CC=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install
 
-cd ~/gettext && rm -r gnulib && ln -s ~/gnulib . && CC=clang CXX=clang++ sh autogen.sh --with-included-gettext --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 ' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 ' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && CC=clang CXX=clang++ ./configure --with-included-gettext --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes 'CFLAGS=-arch x86_64 -mmacosx-version-min=10.9 ' 'LDFLAGS=-arch x86_64 -mmacosx-version-min=10.9 ' CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" && make -j8 && sudo make install
+cd ~/sed && ./bootstrap && CFLAGS="-arch x86_64 -mmacosx-version-min=10.9" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9"  CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9"   CC=clang CXX=clang++ ./configure --with-included-gettext --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes && make -j8 && sudo make install
+
+cd ~/gettext && sh ./gitsub.sh pull && CFLAGS="-arch x86_64 -mmacosx-version-min=10.9" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9"  CC=clang CXX=clang++ sh autogen.sh --with-included-gettext --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes && CFLAGS="-arch x86_64 -mmacosx-version-min=10.9" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9"  CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9"   CC=clang CXX=clang++ ./configure --with-included-gettext --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes && make -j8 && sudo make install
 
 cd ~/ninja && python3 ./configure.py --bootstrap && ./ninja && chmod +x ninja && sudo cp ninja /opt/local/bin
 
