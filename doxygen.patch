@@ -1,0 +1,26 @@
+diff --git a/src/code.h b/src/code.h
+index 42265ad5..a5ce5083 100644
+--- a/src/code.h
++++ b/src/code.h
+@@ -17,7 +17,7 @@
+ 
+ #ifndef CODE_H
+ #define CODE_H
+-
++#include <Python.h>
+ #include "parserintf.h"
+ 
+ class FileDef;
+diff --git a/src/code.l b/src/code.l
+index a01f0f89..e99665ab 100644
+--- a/src/code.l
++++ b/src/code.l
+@@ -37,7 +37,7 @@
+ #include <qregexp.h>
+ #include <qdir.h>
+ 
+-#include "code.h"
++#include "../src/code.h"
+ #include "entry.h"
+ #include "doxygen.h"
+ #include "message.h"
