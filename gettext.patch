@@ -1,3 +1,16 @@
+diff --git a/gettext-runtime/Makefile.am b/gettext-runtime/Makefile.am
+index 0a8e7d9d5..ee010d7e4 100644
+--- a/gettext-runtime/Makefile.am
++++ b/gettext-runtime/Makefile.am
+@@ -27,7 +27,7 @@ SUBDIR_libasprintf = libasprintf
+ else
+ SUBDIR_libasprintf =
+ endif
+-SUBDIRS = doc intl intl-java intl-csharp gnulib-lib $(SUBDIR_libasprintf) src po man m4 tests
++SUBDIRS = doc intl intl-java intl-csharp gnulib-lib $(SUBDIR_libasprintf) src po m4 tests
+ 
+ EXTRA_DIST = BUGS
+ 
 diff --git a/gettext-tools/Makefile.am b/gettext-tools/Makefile.am
 index 449a79754..3f226f23f 100644
 --- a/gettext-tools/Makefile.am
