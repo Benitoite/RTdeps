@@ -53,7 +53,7 @@ git clone https://gitlab.gnome.org/GNOME/libcroco.git
 git clone https://gitlab.gnome.org/GNOME/libxml2
 git clone https://gitlab.gnome.org/GNOME/libxslt
 git clone https://gitlab.gnome.org/GNOME/gtk-mac-integration.git
-git clone https://github.com/llvm-mirror/openmp.git
+git clone https://github.com/llvm/llvm-project.git
 git clone git://git.savannah.gnu.org/gnulib.git
 git clone https://github.com/itstool/itstool.git
 git clone https://gitlab.freedesktop.org/xdg/shared-mime-info.git
@@ -270,7 +270,7 @@ cd ~/gtkmm && git clean -dxf && git checkout 3.24.2 && CC=clang CXX=clang++ CFLA
 
 cd ~ && curl https://sh.rustup.rs -sSf | sh && rustup update
 
-cd ~/librsvg && git clean -dxf && git checkout master && git pull && ln -s /opt/local/lib/libz.1.dylib ./libz.1.dylib && sudo install_name_tool -change libz.1.dylib @rpath/libz.1.dylib /opt/local/lib/libpng16.16.dylib && PKG_CONFIG_PATH=/opt/local/lib/pkgconfig'' CC=clang CXX=clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-L/opt/local/lib -arch x86_64 -mmacosx-version-min=10.9 -Wl,-rpath -Wl,/Applications/RawTherapee.app/Contents/Frameworks" sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-introspection=no --enable-debug=no --enable-gtk-doc=no --disable-Bsymbolic --disable-tools --enable-static --enable-shared --disable-silent-rules --with-libiconv-prefix=/opt/local/lib --with-libintl-prefix=/opt/local/lib && CC=clang CXX=clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib -Wl,-rpath -Wl,/opt/local/lib" make -j8 && sudo make install
+cd ~/librsvg && git clean -dxf && git checkout master && git pull && ln -s /opt/local/lib/libz.1.dylib ./libz.1.dylib && sudo install_name_tool -change libz.1.dylib @rpath/libz.1.dylib /opt/local/lib/libpng16.16.dylib && PKG_CONFIG_PATH=/opt/local/lib/pkgconfig'' CC=clang CXX=clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -L/opt/local/lib -arch x86_64 -mmacosx-version-min=10.9 -Wl,-rpath -Wl,/Applications/RawTherapee.app/Contents/Frameworks" sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-introspection=no --enable-debug=no --enable-gtk-doc=no --disable-Bsymbolic --disable-tools --enable-static --enable-shared --disable-silent-rules --with-libiconv-prefix=/opt/local/lib --with-libintl-prefix=/opt/local/lib && CC=clang CXX=clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib -Wl,-rpath -Wl,/opt/local/lib" make -j8 && sudo make install
 
 cd ~/nasm* && sudo install ldrdf nasm ndisasm rdf* rdx /opt/local/bin
 
@@ -280,7 +280,7 @@ cd ~/gtk-mac-integration && git clean -dxf && git checkout gtk-mac-integration-2
 
 cd ~ && sudo ditto Adwaita /opt/local/share/icons/Adwaita
 
-cd ~/openmp && git clean -dxf && mkdir build && cd build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local -DCMAKE_MACOSX_RPATH=/opt/local/lib -DCMAKE_SHARED_LINKER_FLAGS="-L /opt/local/lib -Wl,-rpath -Wl,/opt/local/lib" && make -j8 && sudo make install
+cd ~/llvm-project/openmp && git clean -dxf && mkdir build && cd build && cmake .. -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local -DCMAKE_MACOSX_RPATH=/opt/local/lib -DCMAKE_SHARED_LINKER_FLAGS="-Wl,-headerpad_max_install_names -L /opt/local/lib -Wl,-rpath -Wl,/opt/local/lib"  -DCMAKE_C_COMPILER="clang" -DCMAKE_CXX_COMPILER="clang++" && make -j8 && sudo make install
 
 cd ~/rt-create-dmg && chmod 4755 create-dmg && sudo ln -s ~/rt-create-dmg/create-dmg /opt/local/bin
 
