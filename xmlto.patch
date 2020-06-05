@@ -1,0 +1,13 @@
+diff --git a/xmlto.in b/xmlto.in
+index aed5458..311ee37 100755
+--- a/xmlto.in
++++ b/xmlto.in
+@@ -225,7 +225,7 @@ VERBOSE=0
+ export VERBOSE
+ 
+ # Disable network entities
+-XSLTOPTS="$XSLTOPTS --nonet"
++#XSLTOPTS="$XSLTOPTS --nonet"
+ 
+ # The names parameter for the XSLT stylesheet
+ XSLTPARAMS=""
