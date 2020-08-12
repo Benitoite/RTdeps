@@ -227,7 +227,7 @@ cd ~/cairo && CFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/includ
 
 #cd ~/cairo && meson setup --pkg-config-path /opt/local/lib --cmake-prefix-path /opt/local --prefix=/opt/local --buildtype=release _build .  --cross-file ~/maccross  --default-library=shared && ninja -C _build && sudo ninja install -C _build 
 
-cd ~/mm-common && LIBRARY_PATH="/opt/local/lib" LD=ld CC=clang CXX=clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" sh autogen.sh --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk --enable-shared=yes --disable-documentation && LIBRARY_PATH="/opt/local/lib" LD=ld CC=clang CXX=clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.9 -I/opt/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -arch x86_64 -mmacosx-version-min=10.9 -L/opt/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.9" make -j8 && sudo make install
+cd ~/mm-common && meson setup --pkg-config-path /opt/local/lib --cmake-prefix-path /opt/local --prefix=/opt/local --buildtype=release _build .  --cross-file ~/maccross  --default-library=shared  -Duse-network=true && ninja -C _build && sudo ninja install -C _build
 
 #cd ~/itstool && PYTHON=python sh autogen.sh --prefix=/opt/local && make -j8 && sudo make install
 
