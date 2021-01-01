@@ -184,7 +184,7 @@ cd ~/bison && git stash && git clean -dxf && git pull && curl https://raw.github
 
 cd ~/ninja && git stash && git clean -dxf && git pull && python3 ./configure.py --bootstrap && ./ninja && chmod +x ninja && sudo cp ninja /opt/local/bin
 
-cd ~/meson && git stash && git clean -dxf && git pull && ninja && chmod +x meson.py && sudo cp meson.py /opt/local/bin/meson
+cd ~/meson && git stash && git clean -dxf && git pull && python3 setup.py build && chmod +x meson.py && sudo cp meson.py /opt/local/bin/meson
 
 cd ~/libjpeg-turbo && git clean -dxf && mkdir build && cd build && cmake .. -DCMAKE_C_COMPILER="clang" -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=11.1 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/opt/local && make -j8 && sudo make install
 
