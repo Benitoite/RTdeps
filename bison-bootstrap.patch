@@ -1,0 +1,13 @@
+diff --git a/bootstrap b/bootstrap
+index 8f76d696..001c836e 100755
+--- a/bootstrap
++++ b/bootstrap
+@@ -166,7 +166,7 @@ bootstrap_epilogue() { :; }
+ # specified directory.  Fill in the first %s with the destination
+ # directory and the second with the domain name.
+ po_download_command_format=\
+-"wget --mirror --level=1 -nd -nv -A.po -P '%s' \
++"wget --no-check-certificate --mirror --level=1 -nd -nv -A.po -P '%s' \
+  https://translationproject.org/latest/%s/"
+ 
+ # Prefer a non-empty tarname (4th argument of AC_INIT if given), else
