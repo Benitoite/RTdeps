@@ -162,7 +162,7 @@ cd ~/pkg-config && CC=clang CXX=clang++ sh ./autogen.sh --prefix=/opt/local --wi
 
 cd ~/openssl && CC=clang CXX=clang++ ./config --prefix=/opt/local && make -j8 && sudo make install
 
-cd ~/wget-1 && ./bootstrap && CC=clang CXX=clang++ ./configure --prefix=/opt/local --disable-dependency-tracking --enable-assert --with-ssl=openssl && make -j8 && sudo make install
+cd ~/wget-1 && CC=clang CXX=clang++ ./configure --prefix=/opt/local --disable-dependency-tracking --enable-assert --with-ssl=openssl && make -j8 && sudo make install
 
 cd ~/m4-code && curl https://raw.githubusercontent.com/macports/macports-ports/edf0ee1e2cf/devel/m4/files/secure_snprintf.patch -o patch && patch -p0 < patch && ./configure --prefix=/opt/local && make -j8 && sudo make install
 
