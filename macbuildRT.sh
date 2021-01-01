@@ -180,7 +180,7 @@ cd ~/sed && ./bootstrap && CFLAGS="-arch x86_64 -mmacosx-version-min=11.1" LDFLA
 
 cd ~/doxygen && mkdir build && cd build && cmake .. -DCMAKE_C_COMPILER="clang" -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_VERBOSE_MAKEFILE=ON -DICONV_LIBRARY:FILEPATH=/opt/local/lib/libiconv.dylib -DPYTHON_EXECUTABLE=/usr/bin/python3 && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/doxygen.patch | git apply && make -j8 && sudo make install
 
-cd ~/bison && git stash && git clean -dxf && git pull && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/bison-bootstrap.patch | git apply && ./bootstrap --no-bootstrap-sync && CC=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install
+cd ~/bison && git stash && git clean -dxf && git pull && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/bison-bootstrap.patch | git apply && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/md5sum -o /opt/local/bin/md5sum && chmod +x /opt/local/bin/md5sum && ./bootstrap --no-bootstrap-sync && CC=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install
 
 cd ~/ninja && python3 ./configure.py --bootstrap && ./ninja && chmod +x ninja && sudo cp ninja /opt/local/bin
 
