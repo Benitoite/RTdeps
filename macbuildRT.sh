@@ -144,7 +144,7 @@ curl https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/0ee50652091363a
 
 # Build tools and libraries
 
-cd ~/CMake && git pull && export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig:/opt/local/share/pkgconfig &&=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install && export PATH=/opt/local/bin:$PATH
+cd ~/CMake && git pull && export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig:/opt/local/share/pkgconfig && CC=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install && export PATH=/opt/local/bin:$PATH
 
 cd ~/autoconf-2 && CC=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install
 
