@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # macbuildRT.sh
-# Builds RawTherapee on macOS 11.2b / Xcode 12.3 (Only runs on Big Sur)
+# Builds RawTherapee on macOS 10.15 / Xcode 12.4
 #
 # Created by Richard Barber on 12/1/18.
 #
