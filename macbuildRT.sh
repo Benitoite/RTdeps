@@ -86,7 +86,7 @@ curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/xz.zip -o xz.zip 
 curl http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.16.tar.gz -o libiconv.tar.gz && tar xf libiconv.tar.gz && rm libiconv*gz && mv libiconv-1* libiconv-1
 
 # texinfo
-curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm tex*xz
+curl https://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz -o texinfo.tar.xz && tar xf texinfo.tar.xz && rm texinfo*xz && mv texinfo* texinfo
 
 # autoconf
 curl -L http://ftpmirror.gnu.org/autoconf/autoconf-2.69.tar.gz -o autoconf.gz && tar -xzf autoconf.gz && rm autoconf.gz && mv autoconf-2* autoconf-2
@@ -146,15 +146,15 @@ curl https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/0ee50652091363a
 
 cd ~/CMake && git pull && export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig:/opt/local/share/pkgconfig && CC=clang CXX=clang++ CFLAGS=-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include ./configure --prefix=/opt/local && make -j8 && sudo make install && export PATH=/opt/local/bin:$PATH
 
+sudo ln -s /opt /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk
+
 cd ~/autoconf-2 && CC=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install
 
 cd ~/autoconf-archive && CC=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install
 
 cd ~/automake && git clean -dxf && git pull && CC=clang CXX=clang++ ./bootstrap --prefix=/opt/local && ./configure --prefix=/opt/local && make -j8 && sudo make install
 
-cd ~/xz* && make distclean && ln -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/Library && MACOSX_DEPLOYMENT_TARGET="10.11" LIBRARY_PATH="/opt/local/lib" LD=ld CC=clang CXX=clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.11 -I/opt/local/include -I{$HOME}/glibc/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -arch x86_64 -mmacosx-version-min=10.11 -L/opt/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.11" ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk --enable-shared=yes && LIBRARY_PATH="/opt/local/lib" LD=ld CC=clang CXX=clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.11 -I/opt/local/include -I{$HOME}/glibc/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -arch x86_64 -mmacosx-version-min=10.11 -L/opt/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.11" MACOSX_DEPLOYMENT_TARGET="10.11" make -j8 && sudo make install
-
-sudo ln -s /opt /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk
+cd ~/xz* && make distclean; ln -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/Library && MACOSX_DEPLOYMENT_TARGET="10.11" LIBRARY_PATH="/opt/local/lib" LD=ld CC=clang CXX=clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.11 -I/opt/local/include -I{$HOME}/glibc/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -arch x86_64 -mmacosx-version-min=10.11 -L/opt/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.11" ./configure --prefix=/opt/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk --enable-shared=yes && LIBRARY_PATH="/opt/local/lib" LD=ld CC=clang CXX=clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.11 -I/opt/local/include -I{$HOME}/glibc/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -arch x86_64 -mmacosx-version-min=10.11 -L/opt/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.11" MACOSX_DEPLOYMENT_TARGET="10.11" make -j8 && sudo make install
 
 cd ~/help2man* && CC=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install
 
