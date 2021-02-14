@@ -1,7 +1,7 @@
 .SUFFIXES:
 
 DESTDIR=
-prefix=/usr/local
+prefix=/opt/local
 bindir=$(prefix)/bin
 mandir=$(prefix)/man
 man1dir=$(mandir)/man1
