@@ -19,3 +19,4 @@ index 00c4789e9..1d6559001 100644
 +    libiconv = [cc.find_library('iconv', dirs: '/opt/local/lib', required: true)]
      found_iconv = true
    endif
+
