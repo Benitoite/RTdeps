@@ -8,7 +8,7 @@ index 9d2877c66..bba7ec539 100644
  }
 +#define _GNU_SOURCE
 diff --git a/meson.build b/meson.build
-index 00c4789e9..1d6559001 100644
+index 00c4789e9..c9051784f 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -1933,7 +1933,7 @@ else
@@ -19,4 +19,16 @@ index 00c4789e9..1d6559001 100644
 +    libiconv = [cc.find_library('iconv', dirs: '/opt/local/lib', required: true)]
      found_iconv = true
    endif
-
+ 
+@@ -2013,7 +2013,7 @@ if cc.has_function('ngettext')
+   have_bind_textdomain_codeset = cc.has_function('bind_textdomain_codeset')
+ else
+   # First just find the bare library.
+-  libintl = cc.find_library('intl', required : false)
++  libintl = cc.find_library('intl', dirs: '/opt/local/lib', required: true)
+   # The bare library probably won't link without help if it's static.
+   if libintl.found() and not cc.has_function('ngettext', dependencies : libintl)
+      libintl_iconv = cc.find_library('iconv', required : false)
+      
+      
+      
