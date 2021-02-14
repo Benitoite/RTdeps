@@ -1,0 +1,21 @@
+diff --git a/glib/glib-unix.c b/glib/glib-unix.c
+index 9d2877c66..bba7ec539 100644
+--- a/glib/glib-unix.c
++++ b/glib/glib-unix.c
+@@ -548,3 +548,4 @@ g_unix_get_passwd_entry (const gchar  *user_name,
+ 
+   return (struct passwd *) g_steal_pointer (&buffer);
+ }
++#define _GNU_SOURCE
+diff --git a/meson.build b/meson.build
+index 00c4789e9..1d6559001 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1933,7 +1933,7 @@ else
+     found_iconv = true
+   endif
+   if not found_iconv and ['auto', 'external'].contains(iconv_opt) and cc.has_header_symbol('iconv.h', 'iconv_open')
+-    libiconv = [cc.find_library('iconv')]
++    libiconv = [cc.find_library('iconv', dirs: '/opt/local/lib', required: true)]
+     found_iconv = true
+   endif
