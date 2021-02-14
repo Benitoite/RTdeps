@@ -11,3 +11,14 @@ index aed5458..311ee37 100755
  
  # The names parameter for the XSLT stylesheet
  XSLTPARAMS=""
+--- Makefile.in	2021-02-14 06:11:26.000000000 -0800
++++ Makefile-old	2021-02-14 06:11:08.000000000 -0800
+@@ -581,7 +581,7 @@
+ 	doc/xmlif.xml \
+ 	xmlto.mak
+ 
+-GEN_MANPAGE = FORMAT_DIR=$(top_srcdir)/format $(BASH) ./xmlto --skip-validation -o --skip$(@D) man $<
++GEN_MANPAGE = FORMAT_DIR=$(top_srcdir)/format $(BASH) ./xmlto -o --skip$(@D) man $<
+ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) top_builddir=$(top_builddir)
+ TESTS = xmlif/test/run-test
+ CLEANFILES = $(dist_man1_MANS) \
