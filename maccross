@@ -8,17 +8,17 @@ python = 'python3'
 strip = 'strip'
 
 [constants]
-common_flag = ['-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/usr/include', '-I/Users/rb/gnulib/lib', '-I/opt/local/include/cairo', '-I/opt/local/include/freetype2', '-mtune=generic', '-v', '-fstrict-aliasing', '-arch', 'x86_64', '-I/opt/local/include', '-O3', '-mmacosx-version-min=11.1', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk']
-common_linx = ['-lgdk_pixbuf-2.0', '/opt/local/lib/libglib-2.0.0.dylib', '/opt/local/lib/libcairo.2.dylib', '/opt/local/lib/libfreetype.6.17.2.dylib', '-Wl,-no_compact_unwind', '-L/opt/local/lib', '-Xlinker', '-U', '-Xlinker', '_g_unix_fd_source_funcs', '-Xlinker', '-U', '-Xlinker', '_libintl_ngettext', '-Xlinker', '-U', '-Xlinker', '_g_unix_fd_source_funcs', '-Xlinker', '-U', '-Xlinker', '_libintl_bind_textdomain_codeset', '-Xlinker', '-U', '-Xlinker', '_libintl_bindtextdomain', '-Xlinker', '-U', '-Xlinker', '_libintl_dcgettext', '-Xlinker', '-U', '-Xlinker', '_libintl_dgettext', '-Xlinker', '-U', '-Xlinker', '_libintl_dngettext', '-Xlinker', '-U', '-Xlinker', '_libintl_gettext', '-Xlinker', '-U', '-Xlinker', '_libintl_newlocale', '-Xlinker', '-U', '-Xlinker', '_libintl_setlocale', '-Xlinker', '-U', '-Xlinker', '_libintl_textdomain', '-Xlinker', '-U', '-Xlinker', '_g_unix_fd_source_new', '-Xlinker', '-U', '-Xlinker', '_g_unix_open_pipe', '-Xlinker', '-U', '-Xlinker', '_g_unix_set_fd_nonblocking', '-Xlinker', '-U', '-Xlinker', '_hb_ft_font_create', '-D_REENTRANT', '-bind_at_load', '-mtune=generic', '-v', '-fstrict-aliasing', '-arch', 'x86_64', '-O3', '-mmacosx-version-min=11.1', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk', '/opt/local/lib/libfontconfig.1.dylib', '/opt/local/lib/libffi.8.dylib', '/opt/local/lib/libfribidi.0.dylib', '/opt/local/lib/libpixman-1.0.dylib', '-L', '/opt/local/lib/libiconv.2.dylib', '/opt/local/lib/libintl.8.dylib', '/opt/local/lib/libpcre.1.dylib', '-liconv', '-lc', '-framework Foundation']
+common_flag = ['-std=gnu99', '-I/opt/local/include', '-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include', '-I/Users/rb/gnulib/lib', '-mtune=generic', '-v', '-fstrict-aliasing', '-arch', 'x86_64', '-I/opt/local/include', '-O3', '-mmacosx-version-min=10.11', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk']
+common_linx = ['-Wl,-undefined,dynamic_lookup', '-Wl,-flat_namespace',  '-Wl,-no_compact_unwind', '-L/opt/local/lib', '-D_REENTRANT', '-bind_at_load', '-mtune=generic', '-v', '-fstrict-aliasing', '-arch', 'x86_64', '-O3', '-mmacosx-version-min=10.11', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk', '-liconv', '-lc', '-L/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/lib']
 
 [properties]
 
-pkg_config_libdir = ['/opt/local/lib/pkgconfig']
+pkg_config_libdir = ['/opt/local/lib']
 pkg_config = '/opt/local/bin/pkg-config'
-pkg_config_path = '/opt/local/lib/pkgconfig'
-sys_root = '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk'
-sdk_args = ['-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk']
-mesonargs = '--wrap-mode=nofallback'
+pkg_config_path = '/opt/local/lib/pkgconfig:opt/local/share/pkgconfig'
+sys_root = '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk'
+sdk_args = ['-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk']
+mesonargs = ''
 [host_machine]
 system = 'darwin'
 cpu_family = 'x86_64'
