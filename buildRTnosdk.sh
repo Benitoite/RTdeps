@@ -63,12 +63,10 @@ git clone git://git.sv.gnu.org/sed
 git clone https://sourceware.org/git/bzip2.git
 git clone https://pagure.io/xmlto.git
 git clone https://github.com/pborman/getopt.git
+git clone https://github.com/ianw/libiptcdata.git
 
 # maccross file for cross compilation using macOS SDK, flags, etc
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/maccross -o maccross
-
-# libiptcdata
-curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
 
 # fftw
 curl http://fftw.org/fftw-3.3.9.tar.gz -o fftw.tar.gz && gunzip -c fftw.tar.gz | tar xopf - && rm fftw.tar.gz && mv fftw-3* fftw-3
@@ -144,9 +142,7 @@ curl https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/0ee50652091363a
 
 # Build tools and libraries
 
-cd ~/CMake && git pull && export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig:/opt/local/share/pkgconfig && CC=clang CXX=clang++ CFLAGS=-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include ./configure --prefix=/opt/local && make -j8 && sudo make install && export PATH=/opt/local/bin:$PATH
-
-sudo ln -s /opt /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk
+cd ~/CMake && git pull && export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig:/opt/local/share/pkgconfig && CC=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install && export PATH=/opt/local/bin:$PATH && export CMAKE=cmake
 
 cd ~/autoconf-2 && CC=clang CXX=clang++ ./configure --prefix=/opt/local && make -j8 && sudo make install
 
