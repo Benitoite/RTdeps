@@ -63,12 +63,10 @@ git clone git://git.sv.gnu.org/sed
 git clone https://sourceware.org/git/bzip2.git
 git clone https://pagure.io/xmlto.git
 git clone https://github.com/pborman/getopt.git
+git clone https://github.com/ianw/libiptcdata.git
 
 # maccross file for cross compilation using macOS SDK, flags, etc
 curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/maccross -o maccross
-
-# libiptcdata
-curl https://svwh.dl.sourceforge.net/project/libiptcdata/libiptcdata/1.0.4/libiptcdata-1.0.4.tar.gz -o iptcdata.tar.gz && gunzip -c iptcdata.tar.gz | tar xopf - && rm iptcdata.tar.gz
 
 # fftw
 curl http://fftw.org/fftw-3.3.9.tar.gz -o fftw.tar.gz && gunzip -c fftw.tar.gz | tar xopf - && rm fftw.tar.gz && mv fftw-3* fftw-3
