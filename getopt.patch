@@ -7,7 +7,7 @@ index ac9d1a4..9e46a51 100644
  
  DESTDIR=
 -prefix=/usr/local
-+prefix=/opt/local
++prefix=/usr/local
  bindir=$(prefix)/bin
  mandir=$(prefix)/man
  man1dir=$(mandir)/man1
@@ -17,8 +17,8 @@ index ac9d1a4..9e46a51 100644
  OPTIMIZE=-O3 -fno-strength-reduce
 -CFLAGS=$(WARNINGS) $(OPTIMIZE)
 -LDFLAGS=
-+CFLAGS=$(WARNINGS) $(OPTIMIZE) -I/opt/local/include
-+LDFLAGS=-L/opt/local/lib -lintl
++CFLAGS=$(WARNINGS) $(OPTIMIZE) -I/usr/local/include
++LDFLAGS=-L/usr/local/lib -lintl
  
  sources=getopt.c
  ifeq ($(LIBCGETOPT),0)
