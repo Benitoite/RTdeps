@@ -1,7 +1,7 @@
 .SUFFIXES:
 
 DESTDIR=
-prefix=/opt/local
+prefix=/usr/local
 bindir=$(prefix)/bin
 mandir=$(prefix)/man
 man1dir=$(mandir)/man1
@@ -43,7 +43,7 @@ WARNINGS=-Wall \
          -Wnested-externs -Winline
 OPTIMIZE=-O3 -fno-strength-reduce
 CFLAGS=$(WARNINGS) $(OPTIMIZE)
-LDFLAGS=/opt/local/lib/libintl.dylib
+LDFLAGS=/usr/local/lib/libintl.dylib
 
 sources=getopt.c
 ifeq ($(LIBCGETOPT),0)
