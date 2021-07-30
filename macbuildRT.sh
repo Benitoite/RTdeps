@@ -8,6 +8,7 @@
 # GIT DEPENDENCIES AND BUILD TOOLS
 cd ~
 git clone https://gitlab.gnome.org/GNOME/gtk.git
+git clone https://gitlab.com/graphviz/graphviz.git
 git clone git://anongit.freedesktop.org/git/cairo
 git clone git://anongit.freedesktop.org/git/pixman.git
 git clone https://gitlab.gnome.org/GNOME/pango.git
