@@ -1,6 +1,6 @@
 diff --git a/Users/rb/Downloads/getopt-1.1.6/Makefile b/Makefile
 index ac9d1a4..9e46a51 100644
---- a/Users/rb/Downloads/getopt-1.1.6/Makefile
+--- a/Makefile
 +++ b/Makefile
 @@ -1,7 +1,7 @@
  .SUFFIXES:
