@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #  xslconfig.sh
-#  
+#
 #
 #  Created by Richard Barber on 11/29/18.
 #  based on http://www.linuxfromscratch.org/blfs/view/svn/pst/docbook-xsl.html
@@ -12,30 +12,30 @@ fi &&
 
 xmlcatalog --noout --add "rewriteSystem" \
 "http://docbook.sourceforge.net/release/xsl/1.79.2" \
-"/opt/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
+"/usr/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
 /etc/xml/catalog &&
 
 xmlcatalog --noout --add "rewriteURI" \
 "http://docbook.sourceforge.net/release/xsl/1.79.2" \
-"/opt/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
+"/usr/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
 /etc/xml/catalog &&
 
 xmlcatalog --noout --add "rewriteSystem" \
 "http://docbook.sourceforge.net/release/xsl/current" \
-"/opt/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
+"/usr/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
 /etc/xml/catalog &&
 
 xmlcatalog --noout --add "rewriteURI" \
 "http://docbook.sourceforge.net/release/xsl/current" \
-"/opt/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
+"/usr/local/share/xml/docbook/xsl-stylesheets-1.79.2" \
 /etc/xml/catalog &&
 
 xmlcatalog --noout --add "rewriteSystem" \
-           "http://docbook.sourceforge.net/release/xsl/1.79.2" \
-           "/usr/share/xml/docbook/xsl-stylesheets-1.79.2" \
-    /etc/xml/catalog &&
+"http://docbook.sourceforge.net/release/xsl/1.79.2" \
+"/usr/share/xml/docbook/xsl-stylesheets-1.79.2" \
+/etc/xml/catalog &&
 
 xmlcatalog --noout --add "rewriteURI" \
-           "http://docbook.sourceforge.net/release/xsl/1.79.2" \
-           "/usr/share/xml/docbook/xsl-stylesheets-1.79.2" \
-    /etc/xml/catalog
+"http://docbook.sourceforge.net/release/xsl/1.79.2" \
+"/usr/share/xml/docbook/xsl-stylesheets-1.79.2" \
+/etc/xml/catalog
