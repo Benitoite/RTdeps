@@ -1,24 +1,26 @@
 [binaries]
-c = 'clang'
-c_ld = 'ld'
-cpp_ld = 'ld'
-cpp = 'clang++'
-objc = 'clang'
+c = 'gcc'
+c_ld = 'lld'
+cpp_ld = 'lld'
+cpp = 'gcc'
+objc = '/usr/bin/clang'
+cc = 'gcc'
+c++ = 'g++'
 python = 'python3'
 strip = 'strip'
+perl = 'perl5'
 
 [constants]
-common_flag = ['-std=gnu99', '-I/opt/local/include', '-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include', '-I/Users/rb/gnulib/lib', '-mtune=generic', '-v', '-fstrict-aliasing', '-arch', 'x86_64', '-I/opt/local/include', '-O3', '-mmacosx-version-min=10.11', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk']
-common_linx = ['-Wl,-undefined,dynamic_lookup', '-Wl,-flat_namespace',  '-Wl,-no_compact_unwind', '-L/opt/local/lib', '-D_REENTRANT', '-bind_at_load', '-mtune=generic', '-v', '-fstrict-aliasing', '-arch', 'x86_64', '-O3', '-mmacosx-version-min=10.11', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk', '-liconv', '-lc', '-L/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/lib']
+common_flag = ['-I/Library/Frameworks/Python.framework/Versions/3.9/include/python3.9', '-I/usr/local/include/cairo', '-I/usr/local/include/atkmm-1.6', '-I/usr/local/include/pangomm-1.4', '-I/usr/local/include', '-I/Users/rb/gnulib/lib', '-mtune=generic', '-v', '-fstrict-aliasing', '-arch', 'x86_64', '-mmacosx-version-min=10.12', '-I/usr/local/include/cairo', '-I/usr/local/include/gio-unix-2.0']
+common_linx = ['/usr/local/lib/libintl.9.dylib', '-Wl,-undefined,dynamic_lookup', '-Wl,-flat_namespace', '-Wl,-no_compact_unwind', '-L/usr/local/lib', '-D_REENTRANT', '-bind_at_load', '-mtune=generic', '-v', '-fstrict-aliasing', '-arch', 'x86_64', '-mmacosx-version-min=10.12', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk', '-lc']
 
 [properties]
+pkg_config_libdir = ['/usr/local/lib/pkgconfig']
+pkg_config = ['/usr/local/bin/pkg-config']
+pkg_config_path = ['/usr/local/lib/pkgconfig:usr/local/share/pkgconfig']
+sdk_args = ['-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk']
+mesonargs = '-Duse-network=true'
 
-pkg_config_libdir = ['/opt/local/lib']
-pkg_config = '/opt/local/bin/pkg-config'
-pkg_config_path = '/opt/local/lib/pkgconfig:opt/local/share/pkgconfig'
-sys_root = '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk'
-sdk_args = ['-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk']
-mesonargs = ''
 [host_machine]
 system = 'darwin'
 cpu_family = 'x86_64'
@@ -26,11 +28,12 @@ cpu = 'x86_64'
 endian = 'little'
 
 [built-in options]
-prefix = '/opt/local'
-
-c_args = common_flag + ['-Wno-implicit']
-cpp_args = common_flag + ['-std=c++11']
+prefix = '/usr/local'
+c_args = common_flag + ['-std=gnu99', '-I/usr/local/lib/giomm-2.4/include', '-I/usr/local/include/freetype2', '-I/usr/local/include/giomm-2.4', '-I/usr/local/include/cairomm-1.0', '-I/usr/local/lib/pangomm-1.4/include', '-I/usr/local/include/sigc++-2.0', '-I/usr/local/lib/sigc++-2.0/include', '-I/usr/local/lib/glibmm-2.4/include', '-I/usr/local/include/atk-1.0', '-I/usr/local/include/pango-1.0', '-I/usr/local/include/gdk-pixbuf-2.0', '-I/usr/local/lib/glib-2.0/include', '-D_GNU_SOURCE', '-I/usr/local/include/glib-2.0', '-I/usr/local/include/gio-unix-2.0', '-I/usr/local/include/freetype2', '-I/usr/local/include/harfbuzz', '-I/usr/local/include/atk-1.0', '-I/usr/local/include/pango-1.0', '-I/usr/local/include/cairo', '-I/usr/local/include/fribidi',  '-I/usr/local/lib/glib-2.0/include', '-I/Users/rb/gtk/gdk/quartz/gdkquartz.h', '-I/usr/local/include/glibmm-2.4', '-I/usr/local/include/gdk-pixbuf-2.0', '-I/usr/local/include/cairo', '-Wno-implicit']
+cpp_args = common_flag + ['-std=gnu++1z', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk', '-I/usr/local/include/freetype2', '-I/usr/local/lib/giomm-2.4/include', '-I/usr/local/include/giomm-2.4', '-I/usr/local/include/cairomm-1.0', '-I/usr/local/lib/pangomm-1.4/include', '-I/usr/local/lib/sigc++-2.0/include', '-I/usr/local/include/sigc++-2.0', '-I/usr/local/lib/glibmm-2.4/include', '-I/usr/local/include/atk-1.0', '-I/usr/local/include/pango-1.0', '-I/usr/local/include/gdk-pixbuf-2.0', '-I/usr/local/lib/glib-2.0/include', '-I/usr/local/include/glibmm-2.4', '-I/usr/local/include/glib-2.0', '-I/usr/local/include/glibmm-2.4/glibmm', '-I/usr/local/opt/llvm/include', '-I/usr/local/opt/expat/include']
 objc_args = common_flag
-c_link_args = common_linx + ['-lm', '-lffi', '-lpcre', '-lintl', '-liconv', '-lffi', '-lglib-2.0', '-lcairo', '-lfreetype']
-cpp_link_args = common_linx + ['-lffi', '-lglib-2.0', '-lcairo', '-lfreetype']
-objc_link_args = common_linx + ['-lffi', '-lglib-2.0', '-lcairo', '-lfreetype']
+c_link_args = common_linx + ['-lm', '-lffi', '-lpcre', '/usr/local/lib/libintl.dylib', '/usr/local/lib/libiconv.dylib', '-lffi', '-lfreetype', '/usr/local/lib/libexpat.dylib']
+cpp_link_args = common_linx
+objc_link_args = common_linx
+objcpp_args = ['-arch', 'x86_64']
+objcpp_link_args = ['-arch', 'x86_64']
