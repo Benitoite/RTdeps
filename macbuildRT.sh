@@ -141,6 +141,9 @@ curl -L https://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.8.tar.gz -o gettext.gz 
 # shared-mime-info-2
 curl https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/0ee50652091363ab0d17e335e5e74fbe/shared-mime-info-2.1.tar.xz -o sharedmimeinfo.xz &&  tar xf sharedmimeinfo.xz &&   mv shared-mime-info-2.* shared-mime-info-2 && rm sharedmimeinfo.xz
 
+# libffi
+curl https://sourceware.org/pub/libffi/libffi-3.3.tar.gz -o libffi.tar.gz && tar xf libffi.tar.gz && mv libffi-3* libffi && rm libffi.tar.gz
+
 # macOS SDK
 sudo ln -s /usr/local /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr
 
@@ -397,7 +400,7 @@ cd ~/libffi && CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/incl
 #     |__/|__/|_/ \/ \/ \___/
 #     |\  |\                 
 #     |/  |/ 
-cd ~/fftw3 && CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-undefined,dynamic_lookup -Wl,-flat_namespace -Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" ./configure --enable-threads --disable-fortran --enable-shared --enable-sse2 --disable-dependency-tracking --enable-openmp --host=x86 --prefix=/usr/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk && make -j8 && sudo make install
+cd ~/fftw-3 && CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-O3 -std=gnu99 -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include/sys -arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-undefined,dynamic_lookup -Wl,-flat_namespace -Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-O3 -Xpreprocessor -fopenmp -arch x86_64 -mmacosx-version-min=10.12" ./configure --enable-threads --disable-fortran --enable-shared --enable-sse2 --disable-dependency-tracking --enable-openmp --host=x86 --prefix=/usr/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk && make -j8 && sudo make install
 
 #                            _               
 #                           | |    o         
@@ -460,7 +463,7 @@ cd ~/gnulib && true
 #     \_/|/|__/|_/\_/ 
 #       /|            
 #       \| 
-cd ~/glib && git stash && git clean -dxf && git checkout 2.68.3 && echo "#define _GNU_SOURCE" >> glib/glib-unix.c && meson setup --cmake-prefix-path /usr/local --prefix=/usr/local --buildtype=release _build . -D iconv=external --cross-file ~/maccross --optimization 3 --default-library=shared -D installed_tests=false -D dtrace=false -D bsymbolic_functions=false -D gio_module_dir=/usr/local/lib/gio/modules -D force_posix_threads=true && ninja -C _build && sudo ninja install -C _build && sudo install_name_tool -change libz.1.dylib /usr/local/lib/libz.1.dylib /usr/local/lib/libgio-2.0.0.dylib && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/glib.la -o glib.la && sed -i -e "s+5900+$(otool -l /usr/local/lib/libglib-2.0.dylib | grep "current version" | head -1 | tail -c9 | cut -c1-4)+g" glib.la && sudo cp glib.la /usr/local/lib/libglib-2.0.la
+cd ~/glib && git stash && git clean -dxf && git checkout 2.68.3 && echo "#define _GNU_SOURCE" >> glib/glib-unix.c && PKG_CONFIG=pkg-config CMAKE=cmake meson setup --cmake-prefix-path /usr/local -D selinux=disabled -D xattr=false --prefix=/usr/local --buildtype=release _build . -D iconv=external --cross-file ~/maccross --optimization 3 --default-library=shared -D installed_tests=false -D dtrace=false -D bsymbolic_functions=false -D gio_module_dir=/usr/local/lib/gio/modules -D force_posix_threads=true && ninja -C _build && sudo ninja install -C _build && sudo install_name_tool -change libz.1.dylib /usr/local/lib/libz.1.dylib /usr/local/lib/libgio-2.0.0.dylib && curl https://raw.githubusercontent.com/Benitoite/RTdeps/master/glib.la -o glib.la && sed -i -e "s+5900+$(otool -l /usr/local/lib/libglib-2.0.dylib | grep "current version" | head -1 | tail -c9 | cut -c1-4)+g" glib.la && sudo cp glib.la /usr/local/lib/libglib-2.0.la
 
 #      _                   _                 
 #     | |                 | |                
@@ -496,7 +499,7 @@ cd ~/pixman && git clean -dxf && sh autogen.sh --prefix=/usr/local --with-sysroo
 #     \___/\_/|_/|_/   |_/\__/ 
 #                              
 # 
-cd ~/cairo && PKG_CONFIG=pkg-config CMAKE=cmake meson setup --pkg-config-path /usr/local/lib --cmake-prefix-path /usr/local --prefix=/usr/local --buildtype=release _build .  --cross-file ~/maccross  --default-library=shared --wrap-mode=nofallback && ninja -C _build && sudo ninja install -C _build
+cd ~/cairo && PKG_CONFIG=pkg-config CMAKE=cmake meson setup -D png=enabled -D freetype=enabled -D fontconfig=enabled --pkg-config-path /usr/local/lib --cmake-prefix-path /usr/local --prefix=/usr/local --buildtype=release _build .  --cross-file ~/maccross  --default-library=shared  && ninja -C _build && sudo ninja install -C _build
 #                                                                           
 #                                                                           
 #      _  _  _    _  _  _       __   __   _  _  _    _  _  _    __   _  _   
@@ -566,7 +569,7 @@ cd ~/libsigcplusplus && git checkout 3.0.6 && sh autogen.sh && DOXYGEN=doxygen L
 #     \_/|/\__/  \_/ |/|__/\___/|_/   |_/  |  |_/|_/   |_/\__/  \/ |__/ |__/\___/|_/ |  /  \_/ |/ |  
 #       /|          /|                                            /|                 |_/\__/   |  |_/
 #       \|          \|                                            \|                
-cd ~/gobject-introspection && GOBJECT_INTROSPECTION_LIBDIR=/usr/local/lib CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-Wno-implicit -std=gnu99 -arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include -I/usr/gtk/include -include /usr/gtk/include/libintl.h" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/gtk/include -I/usr/local/include" meson setup _build --errorlogs  --prefix=/usr/local -D doctool=disabled -D python=/usr/local/bin --buildtype release --default-library shared  --cross-file=/Users/rb/maccross && PKG_CONFIG_PATH=/usr/local/lib/pkgconfig CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include -I/usr/gtk/include -include /usr/gtk/include/libintl.h" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" ninja -C _build && sudo ninja -C _build install
+cd ~/gobject-introspection && PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/Library/Frameworks/Python.framework/Versions/3.9/lib/pkgconfig PYTHON=python3 PKG_CONFIG=pkg-config CMAKE=cmake GOBJECT_INTROSPECTION_LIBDIR=/usr/local/lib CC=gcc CXX=g++ CFLAGS="-Wno-implicit -std=gnu99 -arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include -I/usr/gtk/include -I/Library/Frameworks/Python.framework/Versions/3.9/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/gtk/include -I/usr/local/include" meson setup _build --errorlogs  --prefix=/usr/local -D doctool=disabled -D python=/Library/Frameworks/Python.framework/Versions/3.9/bin --buildtype release --default-library shared  --cross-file=/Users/rb/maccross && PKG_CONFIG_PATH=/usr/local/lib/pkgconfig CC=gcc CXX=g++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include -I/usr/gtk/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" ninja -C _build && sudo ninja -C _build install
 
 #               _   
 #              | |  
@@ -584,7 +587,7 @@ cd ~/atk-2 && CMAKE=/usr/local/bin/cmake PKG_CONFIG=/usr/local/bin/pkg-config CC
 #     \_/|/|__/|_/\_/   |  |  |_/  |  |  |_/
 #       /|                                  
 #       \|
-cd ~/glibmm && git clean -dxf && git checkout 2.68.1 && PKG_CONFIG=pkg-config CMAKE=cmake CC=/usr/bin/clang CXX=/usr/bin/clang++ sh autogen.sh --prefix=/usr/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk --enable-shared=yes CFLAGS="-mtune=generic -arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -Wl,-headerpad_max_install_names -mtune=generic -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib -Wl,-rpath -Wl,/usr/local/lib" CXXFLAGS="-mtune=generic -arch x86_64 -mmacosx-version-min=10.12 -std=c++17" && CFLAGS="-mtune=generic -arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -Wl,-headerpad_max_install_names -mtune=generic -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib -Wl,-rpath -Wl,/usr/local/lib" CXXFLAGS="-mtune=generic -arch x86_64 -mmacosx-version-min=10.12 -std=c++17" make -j8 && sudo make install
+cd ~/glibmm && git clean -dxf && git checkout 2.68.1 && CC=gcc CXX=g++ PKG_CONFIG=pkg-config CMAKE=cmake meson _build --cross=~/maccross -D build-documentation=false -D build-examples=false && ninja -C _build && sudo ninja -C _build install
 
 #                            _                  
 #                           | |         o       
@@ -602,7 +605,7 @@ cd ~/graphviz && git clean -dxf && sh autogen.sh && autoreconf -vfi && CC=/usr/b
 #     \_/|_/|_/| \_/  |  |  |_/  |  |  |_/
 #                                         
 #  
-cd ~/atkmm && git clean -dxf && git checkout 2.36.0 && CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" sh autogen.sh --prefix=/usr/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk --enable-shared=yes && CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" CC=/usr/bin/clang CXX=/usr/bin/clang++ make -j8 && sudo make install
+cd ~/atkmm && git clean -dxf && git checkout 2.36.0 && CC=gcc CXX=g++ PKG_CONFIG=pkg-config CMAKE=cmake meson _build --cross=~/maccross -D build-documentation=false -D build-examples=false && ninja -C _build && sudo ninja -C _build install
 
 #      _                  _  _                    
 #     | |                | || |                   
@@ -611,7 +614,7 @@ cd ~/atkmm && git clean -dxf && git checkout 2.36.0 && CC=/usr/bin/clang CXX=/us
 #     |   |_/\_/|_/   |_/|__/\_/  \_/|_/ /_/  /_/ 
 #                        |\               /|   /| 
 #                        |/               \|   \| 
-cd ~/harfbuzz && git checkout master && git clean -dxf && git pull && PKG_CONFIG=/usr/local/bin/pkg-config CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="/usr/local/lib/libfontconfig.1.dylib -Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" meson setup --prefix=/usr/local --sysconfdir=/etc --buildtype release --default-library both --cross-file ~/maccross _build -Ddocs=disabled && CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" ninja -C _build && sudo ninja install -C _build
+cd ~/harfbuzz && git checkout 2.7.4 && git clean -dxf && CMAKE=cmake PKG_CONFIG=pkg-config meson setup --prefix=/usr/local --sysconfdir=/etc --buildtype release --default-library shared  --optimization 3 --cross-file ~/maccross _build . -D coretext=enabled -D tests=disabled -D docs=disabled -D graphite=enabled -D icu=disabled -D freetype=enabled -D glib=enabled && CXXFLAGS=-Wno-narrowing CFLAGS=-Wno-narrowing ninja -C _build && sudo ninja install -C _build
 
 #      _           _               
 #     | |       o | |  o     |  o  
@@ -629,7 +632,7 @@ cd ~/fribidi && git checkout master && CMAKE=/usr/local/bin/cmake C=/usr/bin/cla
 #      |__/ \_/|_/  |  |_/\_/|/\__/ 
 #     /|                    /|      
 #     \|                    \|  
-cd ~/pango && git checkout 1.48.0 && CMAKE=cmake CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-w -std=c2x -arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" meson setup --prefix=/usr/local --sysconfdir=/etc --buildtype release --default-library both --optimization 3 --cross-file ~/maccross _build . && CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" ninja -C _build && sudo ninja install -C _build && sudo install_name_tool -change libfreetype.6.dylib /usr/local/lib/libfreetype.6.dylib /usr/local/lib/libpangocairo-1.0.0.dylib && sudo install_name_tool -change libfreetype.6.dylib /usr/local/lib/libfreetype.6.dylib /usr/local/lib/libpangoft2-1.0.0.dylib
+cd ~/pango && git checkout 1.48.8 && CMAKE=cmake CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-w -std=c2x -arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" meson setup -D fontconfig=enabled --prefix=/usr/local --sysconfdir=/etc --buildtype release --default-library both --optimization 3 --cross-file ~/maccross _build . && CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" ninja -C _build && sudo ninja install -C _build && sudo install_name_tool -change libfreetype.6.dylib /usr/local/lib/libfreetype.6.dylib /usr/local/lib/libpangocairo-1.0.0.dylib && sudo install_name_tool -change libfreetype.6.dylib /usr/local/lib/libfreetype.6.dylib /usr/local/lib/libpangoft2-1.0.0.dylib
 
 #                                                    
 #                o                                   
@@ -647,8 +650,7 @@ cd ~/cairomm && git checkout master && CC=/usr/bin/clang CXX=/usr/bin/clang++ CF
 #      |__/ \_/|_/  |  |_/\_/|/\__/   |  |  |_/  |  |  |_/
 #     /|                    /|                            
 #     \|                    \|   
-cd ~/pangomm && git checkout pangomm-2-48 && CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" sh autogen.sh --prefix=/usr/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk --enable-shared=yes && CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" make -j8 && sudo make install
-
+ cd ~/cairomm && git checkout master && CC=gcc CXX=g++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" sh autogen.sh --prefix=/usr/local --with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk --enable-shared=yes --disable-documentation && CC=gcc CXX=g++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" make -j8 && sudo make install
 #      _     _                             
 #     | | o | |                            
 #     | |   | |   __   ,_    __   __   __  
@@ -656,7 +658,7 @@ cd ~/pangomm && git checkout pangomm-2-48 && CC=/usr/bin/clang CXX=/usr/bin/clan
 #     |__/|_/\_/ \___/   |_/\__/ \___/\__/ 
 #                                          
 # 
-cd ~/libcroco && git pull && CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" sh autogen.sh --prefix=/usr/local --disable-Bsymbolic && CC=/usr/bin/clang CXX=/usr/bin/clang++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" make -j8 && sudo make install
+cd ~/libcroco && git pull && CC=gcc CXX=g++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" sh autogen.sh --prefix=/usr/local --disable-Bsymbolic && CC=gcc CXX=g++ CFLAGS="-arch x86_64 -mmacosx-version-min=10.12 -I/usr/local/include" LDFLAGS="-Wl,-headerpad_max_install_names -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -arch x86_64 -mmacosx-version-min=10.12 -L/usr/local/lib" CXXFLAGS="-arch x86_64 -mmacosx-version-min=10.12" make -j8 && sudo make install
 
 #      _     _             _     
 #     | | o | |           | |    
@@ -800,8 +802,7 @@ cd ~ && sudo ditto Adwaita /usr/local/share/icons/Adwaita
 #     (/\___/  (/\___/     \_/      |  |  |_/
 #                                            
 # 
-cd ~/llvm-project/openmp && git clean -dxf && mkdir build && cd build && cmake .. -DCMAKE_C_COMPILER="clang" -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.12 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DCMAKE_MACOSX_RPATH=/usr/local/lib -DCMAKE_SHARED_LINKER_FLAGS="-Wl,-headerpad_max_install_names -L /usr/local/lib -Wl,-rpath -Wl,/usr/local/lib"  -DCMAKE_C_COMPILER="clang" -DCMAKE_CXX_COMPILER="clang++" && make -j8 && sudo make install
-cd ~/llvm-project/llvm && git clean -dxf && mkdir build && cd build && cmake .. -DCMAKE_C_COMPILER="clang" -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.12 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DCMAKE_MACOSX_RPATH=/usr/local/lib -DCMAKE_SHARED_LINKER_FLAGS="-Wl,-headerpad_max_install_names -L /usr/local/lib -Wl,-rpath -Wl,/usr/local/lib"  -DCMAKE_C_COMPILER="clang" -DCMAKE_CXX_COMPILER="clang++" && make -j8 && sudo make install
+cd ~/llvm-project && git clean -dxf && mkdir build && cd build && cmake -DLLVM_ENABLE_PROJECTS="clang;openmp" -DLLVM_TARGETS_TO_BUILD="X86" -G "Unix Makefiles" ..  -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.12 -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr/local 
 
 #                                                          
 #                                       |                  
@@ -810,7 +811,7 @@ cd ~/llvm-project/llvm && git clean -dxf && mkdir build && cd build && cmake .. 
 #     \___/   |_/|__/\_/|_/|_/|__/   \_/|_/  |  |  |_/\_/|/
 #                                                       /| 
 #                                                       \| 
-cd ~/rt-create-dmg && chmod 4755 create-dmg && sudo ln -s ~/rt-create-dmg/create-dmg /usr/local/bin
+cd ~/rt-create-dmg && chmod 4755 create-dmg && sudo ln -s ~/rt-create-dmg/create-dmg /usr/local/bin && sudo ln -s ~/rt-create-dmg/support /usr/local/bin
 
 #      _____             _______ _                                    
 #     |  __ \           |__   __| |                                   
