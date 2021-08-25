@@ -136,7 +136,7 @@ curl -L https://download.sourceforge.net/libpng/libpng-1.6.37.tar.xz -o libpng.x
 curl -L https://download.gnome.org/sources/atk/2.36/atk-2.36.0.tar.xz -o atk.xz && tar xf atk.xz && rm atk.xz && mv atk-2* atk-2
 
 # gettext
-curl -L https://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.8.tar.gz -o gettext.gz && tar -xzf gettext.gz && rm gettext.gz && mv gettext-0* gettext-0
+curl -L https://ftp.gnu.org/pub/gnu/gettext/gettext-0.21.tar.xz -o gettext.xz && tar -xzf gettext.xz && rm gettext.xz && mv gettext-0* gettext-0
 
 # shared-mime-info-2
 curl https://gitlab.freedesktop.org/xdg/shared-mime-info/uploads/0ee50652091363ab0d17e335e5e74fbe/shared-mime-info-2.1.tar.xz -o sharedmimeinfo.xz &&  tar xf sharedmimeinfo.xz &&   mv shared-mime-info-2.* shared-mime-info-2 && rm sharedmimeinfo.xz
@@ -292,7 +292,7 @@ cd ~/libiconv-1 && ./configure &&  PKG_CONFIG=pkg-config CMAKE=cmake CC=gcc CXX=
 #      \/ \/  \_/|/|__/|_/
 #               /|        
 #               \|  
-cd ~/wget-1 && CC=/usr/bin/clang CXX=/usr/bin/clang++ ./configure --prefix=/usr/local --disable-dependency-tracking --enable-assert --with-ssl=openssl && make -j8 && sudo make install
+cd ~/wget-1 && CC=gcc CXX=g++ ./configure --prefix=/usr/local --disable-dependency-tracking --enable-assert --with-ssl=openssl && make -j8 && sudo make install
 
 #                   
 #                |  
